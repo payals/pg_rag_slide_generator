@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1600" height="900"
+     viewBox="0 0 1600 900">
+  <defs>
+    <style>
+      text { font-family: Arial, 'Segoe UI', Helvetica, sans-serif; }
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#0a0e27" rx="0"/>
+  <text x="800.0" y="38" font-size="48" fill="#f1f5f9" text-anchor="middle" dominant-baseline="middle" font-weight="700">SQL-Powered Monitoring Dashboard</text>
+<rect x="30.0" y="65.0" width="762.0" height="399.5" rx="8" fill="#0d1117" stroke="#1e293b" stroke-width="1" />
+<rect x="30.0" y="65.0" width="762.0" height="40" rx="8" fill="#2563eb" opacity="0.2"/>
+<text x="411.0" y="85.0" font-size="28" fill="#2563eb" text-anchor="middle" dominant-baseline="middle" font-weight="700">v_deck_coverage</text>
+<text x="411.0" y="129.0" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">intent_no | covered | slide_no</text>
+<text x="411.0" y="173.5" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">1         | true    | 1</text>
+<text x="411.0" y="218.0" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">2         | true    | 2</text>
+<text x="411.0" y="262.5" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">...       | ...     | ...</text>
+<text x="411.0" y="307.0" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">14        | true    | 14</text>
+<text x="411.0" y="351.5" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">━━━━━━━━━━━━━━━━━━━━━</text>
+<text x="411.0" y="396.0" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">Coverage: 14/14 (100%)</text>
+<rect x="808.0" y="65.0" width="762.0" height="399.5" rx="8" fill="#0d1117" stroke="#1e293b" stroke-width="1" />
+<rect x="808.0" y="65.0" width="762.0" height="40" rx="8" fill="#22c55e" opacity="0.2"/>
+<text x="1189.0" y="85.0" font-size="28" fill="#22c55e" text-anchor="middle" dominant-baseline="middle" font-weight="700">v_deck_health</text>
+<text x="1189.0" y="129.0" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">slide | retries | novelty</text>
+<text x="1189.0" y="173.5" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">1     | 0       | 0.95</text>
+<text x="1189.0" y="218.0" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">2     | 1       | 0.88</text>
+<text x="1189.0" y="262.5" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">3     | 0       | 0.92</text>
+<text x="1189.0" y="307.0" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">4     | 2       | ⚠ 0.45</text>
+<text x="1189.0" y="351.5" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">━━━━━━━━━━━━━━━━━━━━</text>
+<text x="1189.0" y="396.0" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">Avg retries: 0.7</text>
+<rect x="30.0" y="480.5" width="762.0" height="399.5" rx="8" fill="#0d1117" stroke="#1e293b" stroke-width="1" />
+<rect x="30.0" y="480.5" width="762.0" height="40" rx="8" fill="#8b5cf6" opacity="0.2"/>
+<text x="411.0" y="500.5" font-size="28" fill="#8b5cf6" text-anchor="middle" dominant-baseline="middle" font-weight="700">v_gate_failures</text>
+<text x="411.0" y="544.5" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">gate    | fails | retry_pct</text>
+<text x="411.0" y="589.0" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">G1_RET  | 2     | 14%</text>
+<text x="411.0" y="633.5" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">G2_CITE | 3     | 21%</text>
+<text x="411.0" y="678.0" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">G3_FMT  | 1     | 7%</text>
+<text x="411.0" y="722.5" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">G4_NOV  | 4     | 28%</text>
+<text x="411.0" y="767.0" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">━━━━━━━━━━━━━━━━━━━━━</text>
+<text x="411.0" y="811.5" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">Total failures: 10</text>
+<rect x="808.0" y="480.5" width="762.0" height="399.5" rx="8" fill="#0d1117" stroke="#1e293b" stroke-width="1" />
+<rect x="808.0" y="480.5" width="762.0" height="40" rx="8" fill="#0d9488" opacity="0.2"/>
+<text x="1189.0" y="500.5" font-size="28" fill="#0d9488" text-anchor="middle" dominant-baseline="middle" font-weight="700">pg_stat_statements</text>
+<text x="1189.0" y="544.5" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">query             | calls | ms</text>
+<text x="1189.0" y="589.0" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">fn_hybrid_search  | 42    | 12</text>
+<text x="1189.0" y="633.5" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">fn_commit_slide   | 14    | 8</text>
+<text x="1189.0" y="678.0" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">fn_check_novelty  | 18    | 15</text>
+<text x="1189.0" y="722.5" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">fn_validate_slide | 14    | 6</text>
+<text x="1189.0" y="767.0" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">━━━━━━━━━━━━━━━━━━━━━━</text>
+<text x="1189.0" y="811.5" font-size="32" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal" font-family="'JetBrains Mono', monospace">Total: 88 calls</text>
+</svg>

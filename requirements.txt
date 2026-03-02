@@ -1,0 +1,80 @@
+# =============================================================================
+# Postgres-First AI Slide Generator - Python Dependencies
+# =============================================================================
+# Install with: pip install -r requirements.txt
+
+# -----------------------------------------------------------------------------
+# Database
+# -----------------------------------------------------------------------------
+asyncpg>=0.29.0              # Async Postgres driver
+psycopg2-binary>=2.9.9       # Sync Postgres driver (for scripts)
+
+# -----------------------------------------------------------------------------
+# OpenAI
+# -----------------------------------------------------------------------------
+openai>=1.12.0               # OpenAI API client
+tiktoken>=0.6.0              # Token counting for chunking
+
+# -----------------------------------------------------------------------------
+# MCP Server
+# -----------------------------------------------------------------------------
+fastmcp>=2.14.0,<3.0.0       # Fast MCP server framework (Client API requires >=2.14)
+# Alternative: mcp>=1.0.0    # Official MCP SDK if FastMCP unavailable
+
+# -----------------------------------------------------------------------------
+# LLM Orchestration
+# -----------------------------------------------------------------------------
+langgraph>=0.0.40            # Graph-based orchestration
+langchain-core>=0.1.30       # LangChain core (required by LangGraph)
+langchain-openai>=0.0.8      # OpenAI integration for LangChain
+
+# -----------------------------------------------------------------------------
+# Utilities
+# -----------------------------------------------------------------------------
+python-dotenv>=1.0.0         # Load .env files
+pydantic>=2.6.0              # Data validation and schemas
+httpx>=0.27.0                # HTTP client (used by openai)
+tenacity>=8.2.0              # Retry logic
+
+# -----------------------------------------------------------------------------
+# Rendering
+# -----------------------------------------------------------------------------
+jinja2>=3.1.3                # Template rendering for reveal.js
+
+# -----------------------------------------------------------------------------
+# Reranking (Cross-Encoder)
+# -----------------------------------------------------------------------------
+sentence-transformers>=3.0.0 # Cross-encoder reranking models
+
+# -----------------------------------------------------------------------------
+# Live Server
+# -----------------------------------------------------------------------------
+fastapi>=0.110.0             # Web framework for SSE server
+uvicorn[standard]>=0.27.0    # ASGI server
+sse-starlette>=2.0.0         # SSE support for FastAPI
+
+# -----------------------------------------------------------------------------
+# CLI / Reporting
+# -----------------------------------------------------------------------------
+rich>=13.0.0                 # Rich terminal output for run reports
+
+# -----------------------------------------------------------------------------
+# Kafka Ingestion Pipeline
+# -----------------------------------------------------------------------------
+aiokafka>=0.10.0             # Async Kafka consumer
+kafka-python>=2.0.2          # Sync Kafka producer (file watcher)
+watchdog>=4.0.0              # Filesystem monitoring
+
+# -----------------------------------------------------------------------------
+# Development & Testing
+# -----------------------------------------------------------------------------
+pytest>=8.0.0                # Testing framework
+pytest-asyncio>=0.23.0       # Async test support
+pytest-cov>=4.1.0            # Coverage reporting
+
+# -----------------------------------------------------------------------------
+# Optional: Development Tools
+# -----------------------------------------------------------------------------
+# black>=24.0.0              # Code formatting
+# ruff>=0.2.0                # Linting
+# mypy>=1.8.0                # Type checking

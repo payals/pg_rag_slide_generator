@@ -1,0 +1,8 @@
+{
+  "caption": "Client-server protocol diagram showing MCP communication with MCP Client LLM Host on left sending structured JSON-RPC requests, bidirectional arrows in center showing protocol with tool_call and tool_result message shapes, MCP Server on right with registered tool function signatures, below contrast showing Without MCP raw SQL strings in red crossed out versus With MCP typed tool calls in green with checkmark",
+  "alt_text": "MCP protocol diagram showing JSON-RPC communication between LLM client and MCP server with registered tools, raw SQL blocked versus typed calls allowed",
+  "use_cases": ["what-is-mcp", "mcp-tools"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for Scale23x presentation",
+  "style": "diagram"
+}

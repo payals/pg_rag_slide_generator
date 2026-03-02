@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
+    {% if theme %}
+    <style>
+        :root {
+            --r-background-color: {{ theme.bg_color | default('#191919') }};
+            --r-main-color: {{ theme.text_color | default('#fff') }};
+            --r-link-color: {{ theme.accent_color | default('#42affa') }};
+            --r-heading-color: {{ theme.text_color | default('#fff') }};
+        }
+        {% if theme.font %}
+        .reveal { font-family: {{ theme.font }}, sans-serif; }
+        {% endif %}
+    </style>
+    {% endif %}
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            {% for slide in slides %}
+            <section{% if slide.bg_color %} data-background-color="{{ slide.bg_color }}"{% endif %}>
+                {% if slide.is_title %}
+                <h1>{{ slide.title }}</h1>
+                {% if slide.subtitle %}<p>{{ slide.subtitle }}</p>{% endif %}
+                {% if slide.speaker %}<p><small>{{ slide.speaker }}{% if slide.job_title %} &mdash; {{ slide.job_title }}{% endif %}{% if slide.company %}, {{ slide.company }}{% endif %}</small></p>{% endif %}
+                {% if slide.event %}<p><small>{{ slide.event }}</small></p>{% endif %}
+
+                {% elif slide.is_divider %}
+                <h2>{{ slide.title }}</h2>
+
+                {% elif slide.is_thanks %}
+                <h2>{{ slide.title }}</h2>
+                {% if slide.bullets %}
+                <ul>
+                    {% for bullet in slide.bullets %}<li>{{ bullet }}</li>{% endfor %}
+                </ul>
+                {% endif %}
+
+                {% else %}
+                <h2>{{ slide.title }}</h2>
+                {% if slide.bullets %}
+                <ul>
+                    {% for bullet in slide.bullets %}<li>{{ bullet }}</li>{% endfor %}
+                </ul>
+                {% endif %}
+                {% endif %}
+
+                {% if slide.speaker_notes %}
+                <aside class="notes">{{ slide.speaker_notes }}</aside>
+                {% endif %}
+            </section>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            plugins: [RevealNotes],
+            transition: 'slide',
+            width: 1920,
+            height: 1080,
+        });
+    </script>
+</body>
+</html>

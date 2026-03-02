@@ -1,0 +1,8 @@
+{
+  "caption": "Postgres RAG Architecture — three-lane pipeline diagram showing Content Ingestion (file watcher, Kafka, consumer), Slide Generation (LangGraph orchestrator, FastMCP, gate chain), and Rendering (FastAPI, browser) with PostgreSQL as the full-width foundation serving as control plane, data store, and event bus",
+  "alt_text": "Swimlane pipeline architecture diagram for a Postgres-centric AI slide generator with Kafka automated ingestion, LangGraph orchestration, MCP tool boundary, six-gate validation, and real-time SSE rendering",
+  "use_cases": ["what-we-built"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for SCaLE 23x presentation",
+  "style": "diagram"
+}

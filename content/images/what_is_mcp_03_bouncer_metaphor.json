@@ -1,0 +1,8 @@
+{
+  "caption": "Bouncer doorman metaphor illustration with MCP Server as gateway allowing typed tools search_chunks validate_structure and check_novelty shown in green, while blocking dangerous operations DROP TABLE raw SQL and DELETE shown in red, PostgreSQL data safe behind the MCP boundary",
+  "alt_text": "MCP gateway bouncer allowing typed tools search_chunks validate_structure check_novelty in green and blocking DROP TABLE raw SQL DELETE in red",
+  "use_cases": ["what-is-mcp", "schema-security", "mcp-tools"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for Scale23x presentation",
+  "style": "diagram"
+}

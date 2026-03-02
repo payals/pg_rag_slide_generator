@@ -1,0 +1,8 @@
+{
+  "caption": "Visual tool registry API documentation layout showing four MCP tool cards in 2x2 grid: search_chunks with query string and top_k int returning ChunkResult array, validate_slide with content JSON returning ValidationResult, check_novelty with deck_id UUID and text string returning NoveltyScore, commit_slide with deck_id UUID and slide JSON returning SlideRecord, each card with distinct icon in dark Swagger UI inspired design",
+  "alt_text": "Four MCP tool cards in grid layout showing function signatures for search_chunks, validate_slide, check_novelty, and commit_slide with types and return values",
+  "use_cases": ["mcp-tools", "what-is-mcp"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for Scale23x presentation",
+  "style": "diagram"
+}

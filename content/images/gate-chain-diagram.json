@@ -1,0 +1,8 @@
+{
+  "caption": "Gate chain validation pipeline showing G0 through G5 sequential quality gates in Postgres",
+  "alt_text": "Sequential gate chain from G0 ingestion through G5 commit with Postgres PL/pgSQL functions",
+  "use_cases": ["gates", "architecture"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for Scale23x presentation",
+  "style": "diagram"
+}

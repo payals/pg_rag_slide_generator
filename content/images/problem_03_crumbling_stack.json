@@ -1,0 +1,8 @@
+{
+  "caption": "AI infrastructure fragility — isometric crumbling tech stack tower showing how typical AI pipelines collapse when built on disconnected services (Relational DB, Vector DB, Cache, Queue, LLM Gateway) without database-enforced transactions, constraints, or rollback mechanisms; failures detected late and expensively",
+  "alt_text": "Isometric crumbling tower of disconnected AI service layers with cracks and falling pieces, representing fragile AI infrastructure without database-level safety controls",
+  "use_cases": ["problem", "infrastructure"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for Scale23x presentation",
+  "style": "diagram"
+}

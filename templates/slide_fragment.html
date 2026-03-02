@@ -1,0 +1,26 @@
+{# Renders slide(s) as <section> elements.
+   Used by render_single_slide_html() for SSE injection.
+   Uses the same autoescape=True as reveal_base.html.
+   Accepts a 'slides' list (may contain 1-2 items: optional divider + content slide). #}
+{% for slide in slides %}
+<section class="{% if slide.is_title %}title-slide{% elif slide.is_divider %}divider-slide{% elif slide.is_thanks %}thanks-slide{% endif %}"{% if slide.slide_no %} data-slide-no="{{ slide.slide_no }}"{% endif %}{% if slide.intent %} data-intent="{{ slide.intent }}"{% endif %}>
+    <div class="slide-content">
+        {% if slide.is_divider %}
+        {% if slide.image_path %}
+        <img src="{{ slide.image_path }}" alt="{{ slide.image_alt | default('Section divider') }}" class="divider-bg-img">
+        {% else %}
+        <h2>{{ slide.title }}</h2>
+        {% endif %}
+        {% else %}
+        <h2>{{ slide.title }}</h2>
+        <div class="slide-body{% if slide.image_path %} with-image{% endif %}">
+
+            {% include "_slide_type_body.html" %}
+        </div>
+        {% endif %}
+    </div>
+    {% if slide.speaker_notes %}
+    <aside class="notes">{{ slide.speaker_notes }}</aside>
+    {% endif %}
+</section>
+{% endfor %}

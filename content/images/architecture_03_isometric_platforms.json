@@ -1,0 +1,8 @@
+{
+  "caption": "Isometric 3D architectural diagram showing system as interconnected floating platforms in space, largest central PostgreSQL platform with visible table function and index layers, connected via bridges to smaller MCP Server platform, LLM cloud platform, Ingestion conveyor belt platform, and Renderer output platform, glowing data cubes traveling along bridges",
+  "alt_text": "Isometric floating platforms connected by bridges: large central PostgreSQL, MCP server, LLM cloud, ingestion conveyor, and renderer output with data cubes traveling between",
+  "use_cases": ["architecture"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for Scale23x presentation",
+  "style": "diagram"
+}

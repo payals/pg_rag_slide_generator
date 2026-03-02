@@ -1,0 +1,8 @@
+{
+  "caption": "Illustrated diagram of AI service sprawl showing six isolated infrastructure components: Vector DB, Relational DB, Cache, LLM Gateway, Audit Log, and Object Store each in separate silos with tangled red interconnect lines representing operational complexity and fragmentation",
+  "alt_text": "Six siloed AI service components with tangled red interconnect lines showing infrastructure sprawl and operational complexity",
+  "use_cases": ["problem", "infrastructure"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for Scale23x presentation",
+  "style": "diagram"
+}

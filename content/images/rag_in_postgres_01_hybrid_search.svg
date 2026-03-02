@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1600" height="900"
+     viewBox="0 0 1600 900">
+  <defs>
+    <style>
+      text { font-family: Arial, 'Segoe UI', Helvetica, sans-serif; }
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#0a0e27" rx="0"/>
+  <text x="800.0" y="42" font-size="52" fill="#f1f5f9" text-anchor="middle" dominant-baseline="middle" font-weight="700">Hybrid Search Pipeline</text>
+<rect x="260.0" y="110.0" width="380" height="90" rx="12" fill="#111836" stroke="#2563eb" stroke-width="2" />
+<text x="450.0" y="155.0" font-size="30" fill="#f1f5f9" text-anchor="middle" dominant-baseline="middle" font-weight="600">Semantic Search (pgvector)</text>
+<line x1="640.0" y1="155.0" x2="720.0" y2="490.0" stroke="#2563eb" stroke-width="2"/>
+<polygon points="720.0,490.0 722.0324034679884,481.2896994229069 714.2512016191185,483.1478968793534" fill="#2563eb"/>
+<rect x="260.0" y="445.0" width="380" height="90" rx="12" fill="#111836" stroke="#0d9488" stroke-width="2" />
+<text x="450.0" y="490.0" font-size="30" fill="#f1f5f9" text-anchor="middle" dominant-baseline="middle" font-weight="600">Trigram Search (pg_trgm)</text>
+<line x1="640.0" y1="490.0" x2="720.0" y2="490.0" stroke="#0d9488" stroke-width="2"/>
+<polygon points="720.0,490.0 712.0,486.0 712.0,494.0" fill="#0d9488"/>
+<rect x="260.0" y="780.0" width="380" height="90" rx="12" fill="#111836" stroke="#f97316" stroke-width="2" />
+<text x="450.0" y="825.0" font-size="30" fill="#f1f5f9" text-anchor="middle" dominant-baseline="middle" font-weight="600">Full-Text Search (tsvector)</text>
+<line x1="640.0" y1="825.0" x2="720.0" y2="490.0" stroke="#f97316" stroke-width="2"/>
+<polygon points="720.0,490.0 714.2512016191185,496.8521031206466 722.0324034679884,498.7103005770931" fill="#f97316"/>
+<rect x="720.0" y="440.0" width="240" height="100" rx="12" fill="#111836" stroke="#8b5cf6" stroke-width="2" />
+<text x="840.0" y="490.0" font-size="30" fill="#f1f5f9" text-anchor="middle" dominant-baseline="middle" font-weight="600">RRF Fusion</text>
+<line x1="960.0" y1="490.0" x2="1040.0" y2="490.0" stroke="#22c55e" stroke-width="2"/>
+<polygon points="1040.0,490.0 1032.0,486.0 1032.0,494.0" fill="#22c55e"/>
+<rect x="1040.0" y="445.0" width="300" height="90" rx="12" fill="#111836" stroke="#22c55e" stroke-width="2" />
+<text x="1190.0" y="490.0" font-size="30" fill="#f1f5f9" text-anchor="middle" dominant-baseline="middle" font-weight="600">Ranked Results</text>
+</svg>

@@ -1,0 +1,25 @@
+%%{init: {'theme': 'dark'}}%%
+flowchart LR
+    DOC["📝 Draft\nSlide"] --> G1
+
+    G1["🔵 G1\nRetrieval\nQuality"]
+    G2["🟢 G2\nCitation\nValidation"]
+    G3["🟡 G3\nFormat\nStructure"]
+    G4["🟣 G4\nNovelty\nCheck"]
+
+    G1 -->|pass| G2
+    G2 -->|pass| G3
+    G3 -->|pass| G4
+    G4 -->|pass| COMMIT["✅ Commit\nSlide"]
+    G4 -->|fail| RETRY["🔄 Retry\nwith Feedback"]
+
+    G1 -->|fail| RETRY
+    G2 -->|fail| RETRY
+    G3 -->|fail| RETRY
+
+    style G1 fill:#2563eb,stroke:#1d4ed8,color:#f1f5f9
+    style G2 fill:#22c55e,stroke:#16a34a,color:#f1f5f9
+    style G3 fill:#eab308,stroke:#ca8a04,color:#0a0e27
+    style G4 fill:#8b5cf6,stroke:#7c3aed,color:#f1f5f9
+    style COMMIT fill:#22c55e,stroke:#16a34a,color:#f1f5f9
+    style RETRY fill:#ef4444,stroke:#dc2626,color:#f1f5f9

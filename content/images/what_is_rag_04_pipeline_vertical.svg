@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1600" height="900"
+     viewBox="0 0 1600 900">
+  <defs>
+    <style>
+      text { font-family: Arial, 'Segoe UI', Helvetica, sans-serif; }
+    </style>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="#0a0e27"/>
+  <text x="800" y="42" font-size="48" fill="#f1f5f9" text-anchor="middle" dominant-baseline="middle" font-weight="700">RAG Pipeline: Query &#x2192; Validated Slide</text>
+
+  <!-- Step 1: Query + Slide Intent -->
+  <rect x="35" y="95" width="330" height="195" rx="12" fill="#111836" stroke="#2563eb" stroke-width="2"/>
+  <circle cx="65" cy="122" r="18" fill="#2563eb"/>
+  <text x="65" y="123" font-size="20" fill="#fff" text-anchor="middle" dominant-baseline="middle" font-weight="700">1</text>
+  <text x="200" y="160" font-size="30" fill="#2563eb" text-anchor="middle" dominant-baseline="middle" font-weight="700">Query + Intent</text>
+  <text x="200" y="202" font-size="22" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle">&quot;Generate a slide about</text>
+  <text x="200" y="232" font-size="22" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle">RAG in PostgreSQL&quot;</text>
+  <text x="200" y="270" font-size="20" fill="#64748b" text-anchor="middle" dominant-baseline="middle">intent: rag-in-postgres</text>
+
+  <!-- Arrow 1-2 -->
+  <line x1="365" y1="192" x2="405" y2="192" stroke="#475569" stroke-width="2"/>
+  <polygon points="405,192 395,186 395,198" fill="#475569"/>
+
+  <!-- Step 2: Embedding -->
+  <rect x="415" y="95" width="330" height="195" rx="12" fill="#111836" stroke="#06b6d4" stroke-width="2"/>
+  <circle cx="445" cy="122" r="18" fill="#06b6d4"/>
+  <text x="445" y="123" font-size="20" fill="#fff" text-anchor="middle" dominant-baseline="middle" font-weight="700">2</text>
+  <text x="580" y="160" font-size="30" fill="#06b6d4" text-anchor="middle" dominant-baseline="middle" font-weight="700">Embed &#x2192; Vector</text>
+  <text x="580" y="202" font-size="22" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle">text-embedding-3-small</text>
+  <rect x="470" y="230" width="220" height="34" rx="6" fill="#0a0e27" stroke="#06b6d4" stroke-width="1"/>
+  <text x="580" y="248" font-size="18" fill="#06b6d4" text-anchor="middle" dominant-baseline="middle" font-family="monospace">[0.023, -0.118, ...]</text>
+
+  <!-- Arrow 2-3 -->
+  <line x1="745" y1="192" x2="785" y2="192" stroke="#475569" stroke-width="2"/>
+  <polygon points="785,192 775,186 775,198" fill="#475569"/>
+
+  <!-- Step 3: PostgreSQL Hybrid Search (HERO step) -->
+  <rect x="795" y="95" width="330" height="195" rx="12" fill="#111836" stroke="#336791" stroke-width="3" filter="url(#glow)"/>
+  <circle cx="825" cy="122" r="18" fill="#336791"/>
+  <text x="825" y="123" font-size="20" fill="#fff" text-anchor="middle" dominant-baseline="middle" font-weight="700">3</text>
+  <text x="960" y="157" font-size="28" fill="#e2e8f0" text-anchor="middle" dominant-baseline="middle" font-weight="700">PG Hybrid Search</text>
+  <text x="960" y="196" font-size="22" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle">pgvector + pg_trgm + RRF</text>
+  <text x="960" y="236" font-size="20" fill="#06b6d4" text-anchor="middle" dominant-baseline="middle" font-weight="600">fn_hybrid_search()</text>
+  <!-- PG Cylinder icon -->
+  <ellipse cx="1105" cy="104" rx="18" ry="8" fill="#336791" opacity="0.6"/>
+  <rect x="1087" y="104" width="36" height="30" fill="#336791" opacity="0.4"/>
+  <ellipse cx="1105" cy="134" rx="18" ry="8" fill="#336791" opacity="0.6"/>
+
+  <!-- Arrow 3-4 -->
+  <line x1="1125" y1="192" x2="1165" y2="192" stroke="#475569" stroke-width="2"/>
+  <polygon points="1165,192 1155,186 1155,198" fill="#475569"/>
+
+  <!-- Step 4: Top-K Chunks -->
+  <rect x="1175" y="95" width="390" height="195" rx="12" fill="#111836" stroke="#0d9488" stroke-width="2"/>
+  <circle cx="1205" cy="122" r="18" fill="#0d9488"/>
+  <text x="1205" y="123" font-size="20" fill="#fff" text-anchor="middle" dominant-baseline="middle" font-weight="700">4</text>
+  <text x="1370" y="157" font-size="28" fill="#0d9488" text-anchor="middle" dominant-baseline="middle" font-weight="700">Top-K Chunks</text>
+  <rect x="1205" y="186" width="330" height="30" rx="4" fill="#0d9488" opacity="0.12"/>
+  <text x="1220" y="201" font-size="20" fill="#94a3b8" text-anchor="start" dominant-baseline="middle">chunk_42  score: 0.91</text>
+  <rect x="1205" y="222" width="330" height="30" rx="4" fill="#0d9488" opacity="0.08"/>
+  <text x="1220" y="237" font-size="20" fill="#94a3b8" text-anchor="start" dominant-baseline="middle">chunk_17  score: 0.87</text>
+  <rect x="1205" y="258" width="330" height="30" rx="4" fill="#0d9488" opacity="0.05"/>
+  <text x="1220" y="273" font-size="20" fill="#64748b" text-anchor="start" dominant-baseline="middle">chunk_08  score: 0.73</text>
+
+  <!-- Connector: Row 1 down to Row 2 -->
+  <path d="M 1370,290 L 1370,375 Q 1370,405 1340,405 L 300,405 Q 270,405 270,435 L 270,490"
+        fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="8,4"/>
+  <polygon points="270,490 264,480 276,480" fill="#475569"/>
+  <rect x="700" y="385" width="240" height="36" rx="6" fill="#0a0e27"/>
+  <text x="820" y="405" font-size="20" fill="#64748b" text-anchor="middle" dominant-baseline="middle" font-weight="600">chunks passed to LLM &#x2193;</text>
+
+  <!-- Step 5: Context + Prompt Assembly -->
+  <rect x="55" y="500" width="420" height="190" rx="12" fill="#111836" stroke="#f97316" stroke-width="2"/>
+  <circle cx="85" cy="527" r="18" fill="#f97316"/>
+  <text x="85" y="528" font-size="20" fill="#fff" text-anchor="middle" dominant-baseline="middle" font-weight="700">5</text>
+  <text x="275" y="555" font-size="30" fill="#f97316" text-anchor="middle" dominant-baseline="middle" font-weight="700">Context + Prompt</text>
+  <text x="275" y="600" font-size="22" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle">System prompt + intent metadata</text>
+  <text x="275" y="632" font-size="22" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle">+ retrieved chunks as context</text>
+  <text x="275" y="670" font-size="20" fill="#64748b" text-anchor="middle" dominant-baseline="middle">slide_type: bullet_list</text>
+
+  <!-- Arrow 5-6 -->
+  <line x1="475" y1="595" x2="540" y2="595" stroke="#475569" stroke-width="2"/>
+  <polygon points="540,595 530,589 530,601" fill="#475569"/>
+
+  <!-- Step 6: LLM Generate -->
+  <rect x="550" y="500" width="420" height="190" rx="12" fill="#111836" stroke="#8b5cf6" stroke-width="2"/>
+  <circle cx="580" cy="527" r="18" fill="#8b5cf6"/>
+  <text x="580" y="528" font-size="20" fill="#fff" text-anchor="middle" dominant-baseline="middle" font-weight="700">6</text>
+  <text x="760" y="555" font-size="30" fill="#8b5cf6" text-anchor="middle" dominant-baseline="middle" font-weight="700">LLM Generates Slide</text>
+  <text x="760" y="600" font-size="22" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle">GPT-5 produces structured JSON</text>
+  <text x="760" y="632" font-size="22" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle">title + bullets + citations</text>
+
+  <!-- Arrow 6-7 -->
+  <line x1="970" y1="595" x2="1035" y2="595" stroke="#475569" stroke-width="2"/>
+  <polygon points="1035,595 1025,589 1025,601" fill="#475569"/>
+
+  <!-- Step 7: Validated Output -->
+  <rect x="1045" y="500" width="520" height="190" rx="12" fill="#111836" stroke="#22c55e" stroke-width="2"/>
+  <circle cx="1075" cy="527" r="18" fill="#22c55e"/>
+  <text x="1075" y="528" font-size="20" fill="#fff" text-anchor="middle" dominant-baseline="middle" font-weight="700">7</text>
+  <text x="1310" y="555" font-size="28" fill="#22c55e" text-anchor="middle" dominant-baseline="middle" font-weight="700">&#x2713; Validated + Cited</text>
+  <text x="1310" y="600" font-size="22" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle">G2 citations &#xB7; G2.5 grounded</text>
+  <text x="1310" y="632" font-size="22" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle">G3 format &#xB7; G4 novel content</text>
+  <text x="1310" y="670" font-size="20" fill="#22c55e" text-anchor="middle" dominant-baseline="middle" font-weight="600">fn_commit_slide() &#x2192; published</text>
+
+  <!-- Bottom summary bar -->
+  <rect x="55" y="750" width="1490" height="65" rx="8" fill="#111836" stroke="#334155" stroke-width="1"/>
+  <text x="800" y="775" font-size="24" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle"><tspan fill="#2563eb">Query</tspan> &#x2192; <tspan fill="#06b6d4">Embed</tspan> &#x2192; <tspan fill="#336791">PG Search</tspan> &#x2192; <tspan fill="#0d9488">Chunks</tspan> &#x2192; <tspan fill="#f97316">Context</tspan> &#x2192; <tspan fill="#8b5cf6">Generate</tspan> &#x2192; <tspan fill="#22c55e">&#x2713; Validate</tspan></text>
+  <text x="800" y="802" font-size="18" fill="#64748b" text-anchor="middle" dominant-baseline="middle">Every step except LLM generation happens inside PostgreSQL</text>
+
+  <!-- Ambient dots -->
+  <circle cx="30" cy="870" r="2" fill="#06b6d4" opacity="0.3"/>
+  <circle cx="1570" cy="870" r="3" fill="#06b6d4" opacity="0.25"/>
+  <circle cx="1540" cy="75" r="2" fill="#06b6d4" opacity="0.35"/>
+  <circle cx="50" cy="75" r="2" fill="#06b6d4" opacity="0.28"/>
+</svg>

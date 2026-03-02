@@ -1,0 +1,8 @@
+{
+  "caption": "Dashboard mockup showing four SQL-powered monitoring panels in 2x2 grid: Panel 1 v_deck_coverage with progress bar showing 14 of 14 intents covered in green, Panel 2 v_deck_health table with slide_no retries and novelty_score columns with flagged rows, Panel 3 v_gate_failures bar chart showing failure counts by gate type, Panel 4 pg_stat_statements table showing top queries by execution time, dark theme with blue teal accents",
+  "alt_text": "Four-panel monitoring dashboard with deck coverage progress, deck health table, gate failure bar chart, and query performance stats in dark theme",
+  "use_cases": ["observability", "gates", "what-we-built"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for Scale23x presentation",
+  "style": "screenshot"
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1600" height="900"
+     viewBox="0 0 1600 900">
+  <defs>
+    <style>
+      text { font-family: Arial, 'Segoe UI', Helvetica, sans-serif; }
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#0a0e27" rx="0"/>
+  <rect x="466.5" y="220.0" width="667" height="400" rx="12" fill="#111836" stroke="#334155" stroke-width="2" />
+<rect x="760.0" y="620.0" width="80" height="30" fill="#1e293b"/>
+<rect x="720.0" y="650.0" width="160" height="8" rx="4" fill="#1e293b"/>
+<rect x="660.0" y="494.0" width="40" height="96.0" rx="4" fill="#2563eb" opacity="0.7" />
+<rect x="720.0" y="446.0" width="40" height="144.0" rx="4" fill="#0d9488" opacity="0.7" />
+<rect x="780.0" y="518.0" width="40" height="72.0" rx="4" fill="#22c55e" opacity="0.7" />
+<rect x="840.0" y="422.0" width="40" height="168.0" rx="4" fill="#8b5cf6" opacity="0.7" />
+<rect x="900.0" y="470.0" width="40" height="120.0" rx="4" fill="#f97316" opacity="0.7" />
+<circle cx="1349" cy="154" r="2" fill="#06b6d4" opacity="0.42246514992794987"/>
+<circle cx="325" cy="794" r="2" fill="#06b6d4" opacity="0.4030098462268734"/>
+<circle cx="1156" cy="129" r="4" fill="#06b6d4" opacity="0.32657654590558116"/>
+<circle cx="101" cy="135" r="2" fill="#06b6d4" opacity="0.2697982680172219"/>
+<circle cx="1272" cy="67" r="4" fill="#06b6d4" opacity="0.25965129520599456"/>
+<circle cx="1370" cy="758" r="4" fill="#06b6d4" opacity="0.3258559462884976"/>
+<circle cx="609" cy="46" r="2" fill="#06b6d4" opacity="0.4094418184964681"/>
+<circle cx="358" cy="260" r="3" fill="#06b6d4" opacity="0.2306630829559546"/>
+<circle cx="818" cy="139" r="3" fill="#06b6d4" opacity="0.4542483099042379"/>
+<circle cx="1276" cy="310" r="2" fill="#06b6d4" opacity="0.41891953600814535"/>
+<circle cx="1138" cy="167" r="3" fill="#06b6d4" opacity="0.22364005942353746"/>
+<circle cx="640" cy="683" r="4" fill="#06b6d4" opacity="0.46563552438104205"/>
+<circle cx="433" cy="761" r="2" fill="#06b6d4" opacity="0.21374731509669867"/>
+<circle cx="506" cy="831" r="3" fill="#06b6d4" opacity="0.4955664561982273"/>
+<circle cx="516" cy="143" r="3" fill="#06b6d4" opacity="0.28339208093302765"/>
+<circle cx="1341" cy="413" r="2" fill="#06b6d4" opacity="0.3110542901350648"/>
+<text x="800.0" y="780" font-size="48" fill="#f1f5f9" text-anchor="middle" dominant-baseline="middle" font-weight="700">Control &amp; Observability</text>
+<text x="800.0" y="820" font-size="30" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal">Making the invisible visible</text>
+</svg>

@@ -1,0 +1,16 @@
+%%{init: {'theme': 'dark'}}%%
+flowchart TB
+    Q["🔍 Query"] --> R
+
+    R["📚 RETRIEVE<br/>Search knowledge base<br/>(Postgres: pgvector + pg_trgm)"]
+    A["🔗 AUGMENT<br/>Insert retrieved context<br/>into LLM prompt"]
+    G["💬 GENERATE<br/>LLM produces grounded<br/>response with citations"]
+
+    R -->|top-K chunks| A
+    A -->|enriched prompt| G
+    G -->|cited answer| OUT["✅ Output"]
+
+    style R fill:#336791,stroke:#2563eb,color:#f1f5f9
+    style A fill:#0d9488,stroke:#0f766e,color:#f1f5f9
+    style G fill:#8b5cf6,stroke:#7c3aed,color:#f1f5f9
+    style OUT fill:#22c55e,stroke:#16a34a,color:#f1f5f9

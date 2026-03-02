@@ -1,0 +1,30 @@
+%%{init: {'theme': 'dark'}}%%
+flowchart TB
+    LLM["🧠 Claude / GPT<br/>(Content Drafting Only)"]
+
+    subgraph APP["🎯 LangGraph Orchestrator"]
+        FLOW["Coordinates Flow<br/>LLM ↔ Tools ↔ Gates"]
+    end
+
+    LLM <-->|"draft /<br/>rewrite"| FLOW
+
+    FASTMCP["🔧 FastMCP Wrapper<br/>(JSON-RPC)"]
+
+    FLOW <-->|"MCP Protocol"| FASTMCP
+
+    subgraph PG["🐘 PostgreSQL"]
+        SEARCH["Hybrid Search<br/>pgvector · pg_trgm"]
+        GATES["Gate Validation<br/>SQL Functions"]
+        STATE["Deck State · Slides<br/>Logs · Images"]
+    end
+
+    FASTMCP <-->|"SQL"| SEARCH
+    FASTMCP <-->|"SQL"| GATES
+    FASTMCP <-->|"SQL"| STATE
+
+    style LLM fill:#8b5cf6,stroke:#7c3aed,color:#f1f5f9
+    style FLOW fill:#2563eb,stroke:#1d4ed8,color:#f1f5f9
+    style FASTMCP fill:#f97316,stroke:#ea580c,color:#f1f5f9
+    style SEARCH fill:#336791,stroke:#2563eb,color:#f1f5f9
+    style GATES fill:#336791,stroke:#22c55e,color:#f1f5f9
+    style STATE fill:#336791,stroke:#0d9488,color:#f1f5f9

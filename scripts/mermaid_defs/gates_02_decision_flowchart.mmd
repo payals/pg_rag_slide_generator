@@ -1,0 +1,30 @@
+%%{init: {'theme': 'dark'}}%%
+flowchart TD
+    START["📝 Generate\nSlide Draft"] --> G1{{"G1: Retrieval\nQuality ≥ 0.7?"}}
+
+    G1 -->|Yes| G2{{"G2: All Claims\nCited?"}}
+    G1 -->|No| FAIL1["❌ Retry:\nImprove retrieval query"]
+
+    G2 -->|Yes| G3{{"G3: Format\nValid?"}}
+    G2 -->|No| FAIL2["❌ Retry:\nAdd missing citations"]
+
+    G3 -->|Yes| G4{{"G4: Novelty\nScore ≥ 0.5?"}}
+    G3 -->|No| FAIL3["❌ Retry:\nFix bullet count/length"]
+
+    G4 -->|Yes| COMMIT["✅ Commit\nto Deck"]
+    G4 -->|No| FAIL4["❌ Retry:\nDifferentiate content"]
+
+    FAIL1 --> START
+    FAIL2 --> START
+    FAIL3 --> START
+    FAIL4 --> START
+
+    style G1 fill:#2563eb,stroke:#1d4ed8,color:#f1f5f9
+    style G2 fill:#22c55e,stroke:#16a34a,color:#f1f5f9
+    style G3 fill:#eab308,stroke:#ca8a04,color:#0a0e27
+    style G4 fill:#8b5cf6,stroke:#7c3aed,color:#f1f5f9
+    style COMMIT fill:#22c55e,stroke:#16a34a,color:#f1f5f9
+    style FAIL1 fill:#ef4444,stroke:#dc2626,color:#f1f5f9
+    style FAIL2 fill:#ef4444,stroke:#dc2626,color:#f1f5f9
+    style FAIL3 fill:#ef4444,stroke:#dc2626,color:#f1f5f9
+    style FAIL4 fill:#ef4444,stroke:#dc2626,color:#f1f5f9

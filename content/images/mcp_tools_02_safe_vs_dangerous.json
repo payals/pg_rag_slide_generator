@@ -1,0 +1,8 @@
+{
+  "caption": "Before after split showing tool safety: left panel Dangerous Raw SQL Access with LLM having direct SQL terminal and dangerous queries floating around DROP TABLE SELECT FROM users DELETE FROM in red, right panel Safe Typed MCP Tools with LLM having only four clean function buttons search validate check commit returning structured data with shield icon overlay",
+  "alt_text": "Split comparison: red dangerous panel with raw SQL DROP TABLE versus green safe panel with four typed MCP tool buttons and shield",
+  "use_cases": ["mcp-tools", "schema-security", "what-is-mcp"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for Scale23x presentation",
+  "style": "diagram"
+}

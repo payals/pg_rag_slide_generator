@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1600" height="900"
+     viewBox="0 0 1600 900">
+  <defs>
+    <style>
+      text { font-family: Arial, 'Segoe UI', Helvetica, sans-serif; }
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#0a0e27" rx="0"/>
+  <text x="800.0" y="35" font-size="48" fill="#f1f5f9" text-anchor="middle" dominant-baseline="middle" font-weight="700">MCP Tool Registry</text>
+<rect x="40.0" y="55.0" width="752.0" height="399.5" rx="8" fill="#111836" stroke="#1e293b" stroke-width="1" />
+<rect x="40.0" y="55.0" width="752.0" height="4" rx="8" fill="#2563eb"/>
+<text x="416.0" y="184.75" font-size="44" fill="#f1f5f9" text-anchor="middle" dominant-baseline="middle" font-weight="700">search_chunks</text>
+<text x="416.0" y="236.75" font-size="36" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal">Hybrid search over knowledge base</text>
+<text x="416.0" y="284.75" font-size="36" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal">Returns ranked chunks with scores</text>
+<rect x="808.0" y="55.0" width="752.0" height="399.5" rx="8" fill="#111836" stroke="#1e293b" stroke-width="1" />
+<rect x="808.0" y="55.0" width="752.0" height="4" rx="8" fill="#22c55e"/>
+<text x="1184.0" y="184.75" font-size="44" fill="#f1f5f9" text-anchor="middle" dominant-baseline="middle" font-weight="700">validate_slide</text>
+<text x="1184.0" y="236.75" font-size="36" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal">Run all gates on a slide draft</text>
+<text x="1184.0" y="284.75" font-size="36" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal">Returns pass/fail with reasons</text>
+<rect x="40.0" y="470.5" width="752.0" height="399.5" rx="8" fill="#111836" stroke="#1e293b" stroke-width="1" />
+<rect x="40.0" y="470.5" width="752.0" height="4" rx="8" fill="#8b5cf6"/>
+<text x="416.0" y="600.25" font-size="44" fill="#f1f5f9" text-anchor="middle" dominant-baseline="middle" font-weight="700">check_novelty</text>
+<text x="416.0" y="652.25" font-size="36" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal">Ensure no content repetition</text>
+<text x="416.0" y="700.25" font-size="36" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal">Compares against existing slides</text>
+<rect x="808.0" y="470.5" width="752.0" height="399.5" rx="8" fill="#111836" stroke="#1e293b" stroke-width="1" />
+<rect x="808.0" y="470.5" width="752.0" height="4" rx="8" fill="#0d9488"/>
+<text x="1184.0" y="600.25" font-size="44" fill="#f1f5f9" text-anchor="middle" dominant-baseline="middle" font-weight="700">commit_slide</text>
+<text x="1184.0" y="652.25" font-size="36" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal">Persist validated slide to deck</text>
+<text x="1184.0" y="700.25" font-size="36" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-weight="normal">Atomic insert with gate logging</text>
+</svg>

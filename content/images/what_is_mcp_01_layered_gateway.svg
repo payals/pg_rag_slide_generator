@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1600" height="900"
+     viewBox="0 0 1600 900">
+  <defs>
+    <style>
+      text { font-family: Arial, 'Segoe UI', Helvetica, sans-serif; }
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#0a0e27" rx="0"/>
+  <text x="800.0" y="35" font-size="48" fill="#f1f5f9" text-anchor="middle" dominant-baseline="middle" font-weight="700">MCP as Gateway Layer</text>
+<rect x="100" y="603.6666666666666" width="1400" height="266.3333333333333" rx="6" fill="#111836" stroke="#2563eb" stroke-width="2" />
+<rect x="100" y="603.6666666666666" width="6" height="266.3333333333333" rx="3" fill="#2563eb"/>
+<text x="800.0" y="736.8333333333333" font-size="44" fill="#f1f5f9" text-anchor="middle" dominant-baseline="middle" font-weight="600">LLM Host — Claude, GPT, etc.</text>
+<rect x="100" y="329.3333333333333" width="1400" height="266.3333333333333" rx="6" fill="#111836" stroke="#0d9488" stroke-width="2" />
+<rect x="100" y="329.3333333333333" width="6" height="266.3333333333333" rx="3" fill="#0d9488"/>
+<text x="800.0" y="462.5" font-size="44" fill="#f1f5f9" text-anchor="middle" dominant-baseline="middle" font-weight="600">MCP Gateway — JSON-RPC protocol</text>
+<rect x="100" y="55.0" width="1400" height="266.3333333333333" rx="6" fill="#111836" stroke="#22c55e" stroke-width="2" />
+<rect x="100" y="55.0" width="6" height="266.3333333333333" rx="3" fill="#22c55e"/>
+<text x="800.0" y="188.16666666666666" font-size="44" fill="#f1f5f9" text-anchor="middle" dominant-baseline="middle" font-weight="600">Data Sources — PostgreSQL, APIs, Files</text>
+</svg>

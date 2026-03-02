@@ -1,0 +1,8 @@
+{
+  "caption": "ACID vs Hope-Based Consistency — left side shows fragile multi-service pipeline (Embed via OpenAI, Store via Pinecone, Search via Elasticsearch, Validate via custom code, Log via Datadog, Commit via MongoDB) with failure points at every integration (network timeout, partial write, stale cache, lost event, failed log) and no transaction boundary — right side shows all operations inside a single Postgres BEGIN...COMMIT transaction (INSERT embedding pgvector, fn_hybrid_search RRF, G1-G5 gates PL/pgSQL, gate_log auto, fn_commit_slide) with green checkmarks and full ACID atomicity and consistency guarantees",
+  "alt_text": "Comparison of multi-service pipeline with hope-based consistency versus single Postgres transaction with full ACID guarantees",
+  "use_cases": ["takeaways"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for SCaLE 23x presentation",
+  "style": "diagram"
+}

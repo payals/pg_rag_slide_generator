@@ -1,0 +1,4 @@
+<p class="statement-text">{{ slide.content_data.statement | default('') }}</p>
+{% if slide.content_data.subtitle %}
+<p class="statement-subtitle">{{ slide.content_data.subtitle }}</p>
+{% endif %}

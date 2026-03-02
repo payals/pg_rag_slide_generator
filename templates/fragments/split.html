@@ -1,0 +1,10 @@
+<div class="split-layout">
+    <div class="split-col">
+        <h3>{{ slide.content_data.left_title | default('') }}</h3>
+        <ul>{% for item in slide.content_data.left_items | default([]) %}<li>{{ item }}</li>{% endfor %}</ul>
+    </div>
+    <div class="split-col">
+        <h3>{{ slide.content_data.right_title | default('') }}</h3>
+        <ul>{% for item in slide.content_data.right_items | default([]) %}<li>{{ item }}</li>{% endfor %}</ul>
+    </div>
+</div>

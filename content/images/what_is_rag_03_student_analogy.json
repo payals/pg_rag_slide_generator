@@ -1,0 +1,8 @@
+{
+  "caption": "Illustrated analogy showing RAG as a student doing research: left panel Naive LLM depicts student answering exam from memory alone with worried expression, right panel RAG-enhanced LLM shows same student at desk surrounded by open reference books representing retrieved chunks confidently writing answers with footnotes",
+  "alt_text": "Two-panel student analogy: worried student answering from memory on left versus confident student with open reference books on right",
+  "use_cases": ["what-is-rag"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for Scale23x presentation",
+  "style": "diagram"
+}

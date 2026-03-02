@@ -1,0 +1,18 @@
+<div class="flow-pipeline">
+    {% for step in slide.content_data.steps | default([]) %}
+    {% if loop.first %}
+    <div class="flow-step">
+        <span class="flow-label">{{ step.label | default('') }}</span>
+        {% if step.caption %}<span class="flow-caption">{{ step.caption }}</span>{% endif %}
+    </div>
+    {% else %}
+    <div class="flow-pair">
+        <span class="flow-arrow">&#8594;</span>
+        <div class="flow-step">
+            <span class="flow-label">{{ step.label | default('') }}</span>
+            {% if step.caption %}<span class="flow-caption">{{ step.caption }}</span>{% endif %}
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>

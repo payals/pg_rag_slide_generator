@@ -1,0 +1,8 @@
+{
+  "caption": "From 9 Vendors to 2 — side-by-side comparison showing multi-vendor AI stack (Pinecone vectors, Elasticsearch search, MongoDB metadata, Redis cache, Airflow ETL, Datadog logs, LangChain chunking, Cohere reranking, RabbitMQ queue) with tangled integration lines versus clean Postgres-First stack with only Kafka event stream, PostgreSQL 17 (pgvector, tsvector, pg_trgm, PL/pgSQL gates, LISTEN/NOTIFY, views), and GPT-5 — reducing from 9 vendors, 9 billing accounts, 9 failure modes to 2 external dependencies, 1 source of truth, full ACID",
+  "alt_text": "Vendor consolidation diagram showing 9 AI infrastructure vendors collapsed into Postgres-first stack with only Kafka and GPT-5 as external dependencies",
+  "use_cases": ["takeaways"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for SCaLE 23x presentation",
+  "style": "diagram"
+}

@@ -1,0 +1,8 @@
+{
+  "caption": "AI infrastructure vendor spaghetti — dark diagram showing 13 disconnected services from 9 different vendors (Pinecone vector DB, Airflow ETL, OpenAI embeddings, LangChain chunker, Cohere reranker, Redis cache, Elastic search, LiteLLM gateway, S3 doc store, Celery scheduler, RabbitMQ queue, Keycloak auth, Datadog monitoring) tangled with crossing connection lines, captioned '13 services, 9 vendors, 9 billing accounts, infinite integration headaches'",
+  "alt_text": "Tangled service mesh of 13 AI infrastructure components from 9 vendors with spaghetti connection lines illustrating integration complexity",
+  "use_cases": ["problem", "infrastructure"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for SCaLE 23x presentation",
+  "style": "diagram"
+}

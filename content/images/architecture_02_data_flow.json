@@ -1,0 +1,8 @@
+{
+  "caption": "System architecture diagram showing PostgreSQL as the control plane containing all business logic: fn_hybrid_search for RAG retrieval with semantic plus trigram plus RRF, validation gates G1 through G5 implemented as Postgres functions for retrieval quality citations grounding format novelty and image checks, fn_commit_slide for persisting gate_log slide and deck state, with FastMCP shown as a thin Python wrapper routing typed JSON calls to PG functions and LLM plus LangGraph as the external non-deterministic generation layer with retry feedback loop on gate failure",
+  "alt_text": "Vertical architecture diagram with large PostgreSQL control plane subgraph containing fn_hybrid_search and validation gates G1 through G5 as SQL functions and fn_commit_slide, FastMCP as thin wrapper hexagon, external LLM with retry loop, and reveal.js renderer",
+  "use_cases": ["architecture", "thesis"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for Scale23x presentation",
+  "style": "diagram"
+}

@@ -1,0 +1,8 @@
+{
+  "caption": "Before and after comparison diagram for RAG: top section Without RAG shows user asking LLM that responds with question mark and hallucination risk warning, bottom section With RAG shows user query going to knowledge base search, retrieving relevant chunks, feeding them to LLM which responds with confident answer and citation markers",
+  "alt_text": "Two-panel comparison: top shows LLM hallucinating without RAG, bottom shows accurate cited response with RAG knowledge base retrieval",
+  "use_cases": ["what-is-rag"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for Scale23x presentation",
+  "style": "diagram"
+}

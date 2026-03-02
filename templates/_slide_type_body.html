@@ -1,0 +1,81 @@
+{# FALLBACK TEMPLATE — This file is used only when DB fragments are unavailable.
+   At runtime, the renderer composes this template from slide_type_config.html_fragment
+   rows loaded from Postgres (see src/renderer.py:compose_slide_type_body).
+   The fragment files in templates/fragments/*.html are the development source
+   of truth and are loaded into the DB via python -m src.load_fragments. #}
+{# Shared slide-type rendering body.
+   Expects 'slide' variable in scope with .slide_type, .content_data, .bullets, .image_path.
+   Included by both reveal_base.html (static export) and slide_fragment.html (SSE live). #}
+{% if slide.slide_type == 'statement' and slide.content_data %}
+<p class="statement-text">{{ slide.content_data.statement | default('') }}</p>
+{% if slide.content_data.subtitle %}
+<p class="statement-subtitle">{{ slide.content_data.subtitle }}</p>
+{% endif %}
+
+{% elif slide.slide_type == 'split' and slide.content_data %}
+<div class="split-layout">
+    <div class="split-col">
+        <h3>{{ slide.content_data.left_title | default('') }}</h3>
+        <ul>{% for item in slide.content_data.left_items | default([]) %}<li>{{ item }}</li>{% endfor %}</ul>
+    </div>
+    <div class="split-col">
+        <h3>{{ slide.content_data.right_title | default('') }}</h3>
+        <ul>{% for item in slide.content_data.right_items | default([]) %}<li>{{ item }}</li>{% endfor %}</ul>
+    </div>
+</div>
+
+{% elif slide.slide_type == 'flow' and slide.content_data %}
+<div class="flow-pipeline">
+    {% for step in slide.content_data.steps | default([]) %}
+    {% if loop.first %}
+    <div class="flow-step">
+        <span class="flow-label">{{ step.label | default('') }}</span>
+        {% if step.caption %}<span class="flow-caption">{{ step.caption }}</span>{% endif %}
+    </div>
+    {% else %}
+    <div class="flow-pair">
+        <span class="flow-arrow">&#8594;</span>
+        <div class="flow-step">
+            <span class="flow-label">{{ step.label | default('') }}</span>
+            {% if step.caption %}<span class="flow-caption">{{ step.caption }}</span>{% endif %}
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+
+{% elif slide.slide_type == 'code' and slide.content_data %}
+<pre class="code-block" data-language="{{ slide.content_data.language | default('') }}"><code>{{ slide.content_data.code_block | default('') }}</code></pre>
+{% for b in slide.content_data.explain_bullets | default([]) %}
+<p class="code-explain">{{ b }}</p>
+{% endfor %}
+
+{% elif slide.slide_type == 'diagram' and slide.content_data %}
+{% set _callouts = slide.content_data.callouts | default([]) | reject('equalto', '') | list %}
+{% if _callouts or slide.content_data.caption %}
+<div class="diagram-content">
+{% for c in _callouts %}
+<p class="diagram-callout">{{ c }}</p>
+{% endfor %}
+{% if slide.content_data.caption %}
+<p class="diagram-caption">{{ slide.content_data.caption }}</p>
+{% endif %}
+</div>
+{% endif %}
+
+{% else %}
+{# Default: bullets (existing layout, also fallback for missing content_data) #}
+{% if slide.bullets %}
+<ul>
+    {% for bullet in slide.bullets %}
+    <li>{{ bullet }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endif %}
+
+{% if slide.image_path %}
+<div class="slide-image">
+    <img src="{{ slide.image_path }}" alt="{{ slide.image_alt | default('Slide image') }}">
+</div>
+{% endif %}

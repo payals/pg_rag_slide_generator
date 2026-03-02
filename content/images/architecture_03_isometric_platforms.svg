@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1600" height="900"
+     viewBox="0 0 1600 900">
+  <defs>
+    <style>
+      text { font-family: Arial, 'Segoe UI', Helvetica, sans-serif; }
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#0a0e27" rx="0"/>
+  <text x="800.0" y="35" font-size="48" fill="#f1f5f9" text-anchor="middle" dominant-baseline="middle" font-weight="700">Architecture Layers</text>
+<rect x="84" y="59.0" width="1440" height="149.0" rx="8" fill="#000" opacity="0.3" />
+<rect x="80" y="55.0" width="1440" height="149.0" rx="8" fill="#111836" stroke="#2563eb" stroke-width="2" />
+<text x="800.0" y="129.5" font-size="44" fill="#2563eb" text-anchor="middle" dominant-baseline="middle" font-weight="600">Presentation — reveal.js renderer</text>
+<line x1="800.0" y1="204.0" x2="800.0" y2="219.0" stroke="#64748b" stroke-width="2" stroke-dasharray="4,4"/>
+<rect x="99" y="223.0" width="1410" height="149.0" rx="8" fill="#000" opacity="0.3" />
+<rect x="95" y="219.0" width="1410" height="149.0" rx="8" fill="#111836" stroke="#0d9488" stroke-width="2" />
+<text x="800.0" y="293.5" font-size="44" fill="#0d9488" text-anchor="middle" dominant-baseline="middle" font-weight="600">Control Plane — gates, validation, audit</text>
+<line x1="800.0" y1="368.0" x2="800.0" y2="383.0" stroke="#64748b" stroke-width="2" stroke-dasharray="4,4"/>
+<rect x="114" y="387.0" width="1380" height="149.0" rx="8" fill="#000" opacity="0.3" />
+<rect x="110" y="383.0" width="1380" height="149.0" rx="8" fill="#111836" stroke="#8b5cf6" stroke-width="2" />
+<text x="800.0" y="457.5" font-size="44" fill="#8b5cf6" text-anchor="middle" dominant-baseline="middle" font-weight="600">MCP Interface — typed tool boundary</text>
+<line x1="800.0" y1="532.0" x2="800.0" y2="547.0" stroke="#64748b" stroke-width="2" stroke-dasharray="4,4"/>
+<rect x="129" y="551.0" width="1350" height="149.0" rx="8" fill="#000" opacity="0.3" />
+<rect x="125" y="547.0" width="1350" height="149.0" rx="8" fill="#111836" stroke="#22c55e" stroke-width="2" />
+<text x="800.0" y="621.5" font-size="44" fill="#22c55e" text-anchor="middle" dominant-baseline="middle" font-weight="600">AI Engine — LLM generation &amp; retrieval</text>
+<line x1="800.0" y1="696.0" x2="800.0" y2="711.0" stroke="#64748b" stroke-width="2" stroke-dasharray="4,4"/>
+<rect x="144" y="715.0" width="1320" height="149.0" rx="8" fill="#000" opacity="0.3" />
+<rect x="140" y="711.0" width="1320" height="149.0" rx="8" fill="#111836" stroke="#f97316" stroke-width="2" />
+<text x="800.0" y="785.5" font-size="44" fill="#f97316" text-anchor="middle" dominant-baseline="middle" font-weight="600">Data Foundation — PostgreSQL + extensions</text>
+</svg>

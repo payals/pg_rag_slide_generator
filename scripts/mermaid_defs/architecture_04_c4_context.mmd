@@ -1,0 +1,23 @@
+%%{init: {'theme': 'dark'}}%%
+flowchart TD
+    SPEAKER["👤 Speaker\n(Provides source documents\nand presentation outline)"]
+    
+    subgraph System["Slide Generator System"]
+        GENERATOR["🎯 Slide Generator\n(Orchestrator + MCP + LLM)"]
+    end
+
+    DOCS["📄 Source Documents\n(Markdown, notes, blogs)"]
+    LLM_API["🤖 LLM API\n(OpenAI GPT-4)"]
+    BROWSER["🌐 Browser\n(reveal.js presentation)"]
+
+    SPEAKER -->|uploads content| DOCS
+    DOCS -->|ingested into| GENERATOR
+    GENERATOR <-->|generates slides| LLM_API
+    GENERATOR -->|outputs HTML| BROWSER
+    SPEAKER -->|views & presents| BROWSER
+
+    style GENERATOR fill:#336791,stroke:#2563eb,color:#f1f5f9
+    style LLM_API fill:#8b5cf6,stroke:#7c3aed,color:#f1f5f9
+    style SPEAKER fill:#0d9488,stroke:#0f766e,color:#f1f5f9
+    style DOCS fill:#f97316,stroke:#ea580c,color:#f1f5f9
+    style BROWSER fill:#22c55e,stroke:#16a34a,color:#f1f5f9

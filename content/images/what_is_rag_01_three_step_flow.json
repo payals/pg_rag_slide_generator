@@ -1,0 +1,8 @@
+{
+  "caption": "Three-step horizontal flowchart showing the RAG Retrieval-Augmented Generation process: Step 1 RETRIEVE with magnifying glass searching document collection pulling relevant chunks, Step 2 AUGMENT with retrieved documents being attached to query prompt, Step 3 GENERATE with LLM brain icon producing output text with citation markers, each step in its own rounded box with large connecting arrows",
+  "alt_text": "Three-step RAG flowchart: Retrieve with magnifying glass, Augment combining documents with query, Generate with LLM brain producing cited output",
+  "use_cases": ["what-is-rag", "rag-in-postgres"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for Scale23x presentation",
+  "style": "diagram"
+}

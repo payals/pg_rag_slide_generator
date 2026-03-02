@@ -1,0 +1,8 @@
+{
+  "caption": "Side-by-side architecture comparison showing With Postgres as single clean blue cylinder connected to application with 2 arrows versus Without Postgres showing complex diagram with 4 separate services Postgres Pinecone Redis Audit DB all connected with 8 plus arrows and sync workers",
+  "alt_text": "Architecture comparison showing simple single-database Postgres setup versus complex multi-service setup with many connections",
+  "use_cases": ["comparison", "problem"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for Scale23x presentation",
+  "style": "diagram"
+}

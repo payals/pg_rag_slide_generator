@@ -1,0 +1,4 @@
+<pre class="code-block" data-language="{{ slide.content_data.language | default('') }}"><code>{{ slide.content_data.code_block | default('') }}</code></pre>
+{% for b in slide.content_data.explain_bullets | default([]) %}
+<p class="code-explain">{{ b }}</p>
+{% endfor %}

@@ -1,0 +1,8 @@
+{
+  "caption": "C4 model system context diagram with central Slide Generator system as large blue box containing three internal components Postgres DB, MCP Server, and Orchestrator, external actors Speaker person icon at top, Source Documents folder icon at left, Claude LLM API cloud at right, and Browser Audience monitor at bottom with labeled relationship arrows",
+  "alt_text": "C4 context diagram with Slide Generator system containing Postgres, MCP, and Orchestrator, connected to Speaker, Documents, LLM API, and Browser actors",
+  "use_cases": ["architecture"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for Scale23x presentation",
+  "style": "diagram"
+}

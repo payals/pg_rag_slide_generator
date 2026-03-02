@@ -1,0 +1,8 @@
+{
+  "caption": "Two-row horizontal RAG pipeline showing seven steps: Row 1 flows left to right with Query plus Slide Intent, Embed to Vector, PostgreSQL Hybrid Search with fn_hybrid_search and PG cylinder icon, and Top-K Chunks with relevance scores; Row 2 flows left to right with Context plus Prompt assembly, LLM generates structured JSON slide, and Validated Cited Output passing G2 through G4 gates to fn_commit_slide; summary bar at bottom showing every step except LLM generation happens inside PostgreSQL",
+  "alt_text": "Seven-step horizontal RAG pipeline in two rows from query through embedding PG hybrid search chunks context LLM generation to validated cited output",
+  "use_cases": ["what-is-rag", "rag-in-postgres"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for Scale23x presentation",
+  "style": "diagram"
+}

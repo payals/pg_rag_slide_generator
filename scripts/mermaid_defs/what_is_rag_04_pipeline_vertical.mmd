@@ -1,0 +1,18 @@
+%%{init: {'theme': 'dark'}}%%
+flowchart TD
+    Q["🔍 User Query"] --> EMB["1️⃣ Embed Query<br/>text → vector(1536)"]
+    EMB --> SEARCH["2️⃣ Hybrid Search<br/>(Postgres: pgvector + pg_trgm + tsvector)"]
+    SEARCH --> RETRIEVE["3️⃣ Retrieve Chunks<br/>(Postgres: top-K by RRF score)"]
+    RETRIEVE --> RERANK["4️⃣ Rerank<br/>cross-encoder scoring"]
+    RERANK --> CONTEXT["5️⃣ Build Context<br/>format chunks into prompt"]
+    CONTEXT --> LLM["6️⃣ LLM Generate<br/>GPT-4 with grounding"]
+    LLM --> OUTPUT["7️⃣ Cited Output<br/>response with source refs"]
+
+    style Q fill:#f97316,stroke:#ea580c,color:#f1f5f9
+    style EMB fill:#2563eb,stroke:#1d4ed8,color:#f1f5f9
+    style SEARCH fill:#336791,stroke:#2563eb,color:#f1f5f9
+    style RETRIEVE fill:#336791,stroke:#2563eb,color:#f1f5f9
+    style RERANK fill:#8b5cf6,stroke:#7c3aed,color:#f1f5f9
+    style CONTEXT fill:#0d9488,stroke:#0f766e,color:#f1f5f9
+    style LLM fill:#8b5cf6,stroke:#7c3aed,color:#f1f5f9
+    style OUTPUT fill:#22c55e,stroke:#16a34a,color:#f1f5f9

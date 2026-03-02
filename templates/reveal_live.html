@@ -1,0 +1,805 @@
+{% extends "reveal_base.html" %}
+
+{% block slides_content %}
+    {# Title slide #}
+    <section class="title-slide">
+        <div class="slide-content">
+            <h1>{{ title_slide.title }}</h1>
+            <p class="subtitle">{{ title_slide.subtitle }}</p>
+            <p class="speaker">{{ title_slide.speaker }}</p>
+            {% if title_slide.job_title %}<p class="job-title">{{ title_slide.job_title }}</p>{% endif %}
+            {% if title_slide.company %}<p class="company">{% if title_slide.company_url %}<a href="{{ title_slide.company_url }}">{{ title_slide.company }}</a>{% else %}{{ title_slide.company }}{% endif %}</p>{% endif %}
+            <p class="event">{{ title_slide.event }}</p>
+        </div>
+        <aside class="notes">Welcome! Slides are being generated live.</aside>
+    </section>
+
+    {# Pre-loaded slides (if resuming a deck) #}
+    {% for slide in initial_slides %}
+    {{ slide.html | safe }}
+    {% endfor %}
+
+    {# Thanks slide -- always last, new slides inserted before this #}
+    <section class="thanks-slide" id="thanks-slide">
+        <div class="slide-content">
+            <h2>{{ thanks_slide.title }}</h2>
+            <ul>
+                {% for bullet in thanks_slide.bullets %}
+                <li>{{ bullet }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <aside class="notes">{{ thanks_slide.speaker_notes }}</aside>
+    </section>
+{% endblock %}
+
+{% block extra_head %}
+    <style>
+        /* Compact live status panel — inside the scaled UI overlay */
+        .slide-ui-overlay .live-status-panel {
+            position: absolute;
+            top: 14px;
+            left: 36px;
+            z-index: 40;
+            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+            font-size: 19px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.85);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(66, 175, 250, 0.15);
+            border-radius: 10px;
+            padding: 14px 24px;
+            pointer-events: none;
+            width: 420px;
+            transition: opacity 0.5s ease;
+        }
+
+        .slide-ui-overlay .live-status-panel.hidden,
+        .slide-ui-overlay .live-status-panel.user-hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .live-status-panel .ls-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .live-status-panel .ls-label {
+            color: rgba(255, 255, 255, 0.45);
+        }
+
+        .live-status-panel .ls-val {
+            text-align: right;
+            color: #e2e8f0;
+        }
+
+        .live-status-panel .ls-val.pass {
+            color: #4ade80;
+        }
+
+        .live-status-panel .ls-val.pass::after {
+            content: " \2713";
+        }
+
+        .live-status-panel .ls-val.fail {
+            color: #f87171;
+        }
+
+        .live-status-panel .ls-val.fail::after {
+            content: " \2717";
+        }
+
+        .live-status-panel .ls-val.waiting {
+            color: #facc15;
+        }
+
+        .live-status-panel .ls-val.done {
+            color: #4ade80;
+        }
+
+        .live-status-panel .ls-dot {
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #4ade80;
+            margin-left: 7px;
+            vertical-align: middle;
+        }
+
+        .live-status-panel .ls-dot.pulsing {
+            animation: ls-pulse 1.5s infinite;
+        }
+
+        @keyframes ls-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Telemetry mode (post-generation) */
+        @keyframes ls-telemetry-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .live-status-panel .ls-dot.telemetry-pulse {
+            background: #22d3ee;
+            animation: ls-telemetry-pulse 2.5s infinite;
+        }
+
+        .live-status-panel .ls-val.telemetry-header {
+            color: #22d3ee;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            font-size: 0.85em;
+            text-transform: uppercase;
+        }
+
+        .live-status-panel .ls-val.telemetry-header::after {
+            content: none;
+        }
+
+        .live-status-panel .ls-val.telemetry-src {
+            color: rgba(34, 211, 238, 0.5);
+            font-size: 0.85em;
+        }
+
+        .live-status-panel .ls-val.telemetry-src::after {
+            content: none;
+        }
+
+        .live-status-panel.telemetry-mode .ls-row {
+            transition: opacity 0.6s ease;
+        }
+
+        .live-status-panel.telemetry-mode .ls-row.fading {
+            opacity: 0;
+        }
+
+        .live-status-panel.telemetry-mode .ls-val {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 300px;
+        }
+
+        .ls-val.score-good  { color: #4ade80; }
+        .ls-val.score-mid   { color: #facc15; }
+        .ls-val.score-low   { color: #f87171; }
+
+        #ls-progress-dots {
+            display: flex;
+            flex-direction: row;
+            gap: 4px;
+            margin-top: 6px;
+            align-items: center;
+        }
+
+        #ls-progress-dots .prog-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: background 0.3s ease;
+        }
+
+        #ls-progress-dots .prog-dot.active {
+            background: #22d3ee;
+        }
+
+        /* Keep the big panel on title slide too */
+        .gen-status-detail {
+            margin-top: 36px;
+            padding: 18px 24px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border: 1px solid rgba(66, 175, 250, 0.2);
+            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+            font-size: 0.46em;
+            text-align: left;
+        }
+
+        .status-header {
+            font-size: 1.3em;
+            color: var(--accent-color, #42affa);
+            margin-bottom: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 5px 14px;
+        }
+
+        .status-label {
+            color: var(--muted-color, #888);
+            text-align: right;
+        }
+
+        .status-val {
+            color: #e2e8f0;
+        }
+
+        .status-val.done::after { content: " \2713"; color: #4ade80; }
+        .status-val.fail::after { content: " \2717"; color: #f87171; }
+        .status-val.active { color: #facc15; }
+    </style>
+{% endblock %}
+
+{% block ui_overlay %}
+    {{ super() }}
+    <div id="live-status-panel" class="live-status-panel">
+        <div class="ls-row">
+            <span class="ls-label">RAG:</span>
+            <span id="ls-rag" class="ls-val waiting">waiting&hellip;</span>
+        </div>
+        <div class="ls-row">
+            <span class="ls-label">Gate:</span>
+            <span id="ls-gate" class="ls-val waiting">waiting&hellip;</span>
+        </div>
+        <div class="ls-row">
+            <span class="ls-label">LLM:</span>
+            <span id="ls-llm" class="ls-val waiting">waiting&hellip;</span>
+        </div>
+        <div class="ls-row">
+            <span class="ls-label">Slides ready:</span>
+            <span id="ls-count" class="ls-val">0/{{ target_slides }}</span>
+        </div>
+        <div class="ls-row">
+            <span class="ls-label">Last checkpoint:</span>
+            <span id="ls-checkpoint" class="ls-val">--</span>
+        </div>
+        <div id="ls-progress-dots" style="display: none;"></div>
+        <span id="ls-dot" class="ls-dot pulsing"></span>
+    </div>
+{% endblock %}
+
+{% block extra_scripts %}
+    // --- SSE Client for Progressive Deck ---
+    var deckId = '{{ deck_id }}';
+    var receivedIntents = {};  // Client-side dedup for reconnection
+    var llmTimer = null;
+    var llmStartTime = null;
+    var panelUserHidden = false;
+
+    var evtSource = new EventSource('/api/stream/' + deckId);
+
+    // --- LLM timer ---
+    function startLlmTimer() {
+        llmStartTime = Date.now();
+        if (llmTimer) clearInterval(llmTimer);
+        llmTimer = setInterval(function() {
+            var elapsed = Math.round((Date.now() - llmStartTime) / 1000);
+            var el = document.getElementById('ls-llm');
+            el.textContent = 'working\u2026 (' + elapsed + 's)';
+            el.className = 'ls-val waiting';
+        }, 1000);
+    }
+
+    function stopLlmTimer() {
+        if (llmTimer) { clearInterval(llmTimer); llmTimer = null; }
+    }
+
+    // --- Reveal.sync() override for live deck ---
+    Reveal.sync = function() {
+        var currentElement = this.state.slides[this.state.currentSlide];
+
+        var slidesContainer = document.querySelector('.reveal .slides');
+        this.state.slides = Array.from(
+            slidesContainer.querySelectorAll(':scope > section')
+        );
+        this.state.totalSlides = this.state.slides.length;
+
+        var newIndex = this.state.slides.indexOf(currentElement);
+        if (newIndex >= 0) {
+            this.state.currentSlide = newIndex;
+        }
+
+        var current = this.state.currentSlide;
+        this.state.slides.forEach(function(slide, i) {
+            slide.classList.remove('present', 'past', 'future');
+            if (i < current) slide.classList.add('past');
+            else if (i === current) slide.classList.add('present');
+            else slide.classList.add('future');
+        });
+        this.updateProgress();
+        this.updateSlideNumber();
+    };
+
+    evtSource.addEventListener('slide_added', function(e) {
+        var data = JSON.parse(e.data);
+        if (receivedIntents[data.intent]) return;
+        receivedIntents[data.intent] = true;
+
+        var slidesContainer = document.querySelector('.reveal .slides');
+        var thanksSlide = document.getElementById('thanks-slide');
+        var temp = document.createElement('div');
+        temp.innerHTML = data.html;
+        while (temp.firstElementChild) {
+            slidesContainer.insertBefore(temp.firstElementChild, thanksSlide);
+        }
+        Reveal.sync();
+
+        // Update compact panel
+        document.getElementById('ls-count').textContent =
+            data.slides_ready + '/' + data.total;
+        var padded = String(data.slide_no).padStart(3, '0');
+        var cp = document.getElementById('ls-checkpoint');
+        cp.textContent = 'slide_' + padded;
+        cp.className = 'ls-val pass';
+
+        // LLM done for this slide
+        stopLlmTimer();
+        var llmEl = document.getElementById('ls-llm');
+        llmEl.textContent = 'done';
+        llmEl.className = 'ls-val done';
+    });
+
+    evtSource.addEventListener('progress', function(e) {
+        var data = JSON.parse(e.data);
+        var phase = data.phase;
+        var ragEl = document.getElementById('ls-rag');
+
+        if (phase === 'retrieve') {
+            ragEl.textContent = 'searching\u2026';
+            ragEl.className = 'ls-val waiting';
+        } else if (phase === 'draft') {
+            startLlmTimer();
+        } else if (phase === 'validate_format' || phase === 'commit') {
+            stopLlmTimer();
+            var llmEl = document.getElementById('ls-llm');
+            llmEl.textContent = 'done';
+            llmEl.className = 'ls-val done';
+        }
+
+        // Update slides count from progress too
+        if (data.slides_ready !== undefined) {
+            document.getElementById('ls-count').textContent =
+                data.slides_ready + '/{{ target_slides }}';
+        }
+    });
+
+    evtSource.addEventListener('gate_update', function(e) {
+        var data = JSON.parse(e.data);
+        var gateEl = document.getElementById('ls-gate');
+        var passed = data.decision === 'pass';
+        gateEl.textContent = data.gate_name;
+        gateEl.className = 'ls-val ' + (passed ? 'pass' : 'fail');
+
+        if (data.gate_name === 'g1_retrieval') {
+            var ragEl = document.getElementById('ls-rag');
+            var chunks = data.chunk_count;
+            ragEl.textContent = 'retrieved';
+            ragEl.className = 'ls-val pass';
+        }
+    });
+
+    evtSource.addEventListener('error_event', function(e) {
+        var data = JSON.parse(e.data);
+        stopLlmTimer();
+        var llmEl = document.getElementById('ls-llm');
+        llmEl.textContent = 'error';
+        llmEl.className = 'ls-val fail';
+        document.getElementById('ls-dot').classList.remove('pulsing');
+        document.getElementById('ls-dot').style.background = '#f87171';
+    });
+
+    evtSource.addEventListener('complete', function(e) {
+        evtSource.close();
+        stopLlmTimer();
+        var data = JSON.parse(e.data);
+
+        var llmEl = document.getElementById('ls-llm');
+        llmEl.textContent = 'complete';
+        llmEl.className = 'ls-val done';
+
+        var ragEl = document.getElementById('ls-rag');
+        ragEl.textContent = 'complete';
+        ragEl.className = 'ls-val done';
+
+        var gateEl = document.getElementById('ls-gate');
+        gateEl.textContent = 'all passed';
+        gateEl.className = 'ls-val pass';
+
+        var countEl = document.getElementById('ls-count');
+        if (data.slides_ready !== undefined && data.total !== undefined) {
+            countEl.textContent = data.slides_ready + '/' + data.total;
+        }
+        countEl.className = 'ls-val done';
+
+        document.getElementById('ls-dot').classList.remove('pulsing');
+        document.getElementById('ls-dot').style.background = '#4ade80';
+
+        setTimeout(startTelemetryMode, 5000);
+    });
+
+    // =================================================================
+    // Telemetry Mode — post-generation stat rotation
+    // =================================================================
+    var telemetryInterval = null;
+    var telemetryStats = [];
+    var telemetryIndex = 0;
+    var currentSlideNo = null;
+    var cachedDeckStats = null;
+    var cachedSlideStats = {};
+    var slideChangeDebounce = null;
+    var fetchAbortController = null;
+
+    function getCurrentSlideNo() {
+        var present = document.querySelector('.reveal .slides > section.present');
+        if (!present) return null;
+        var sno = present.getAttribute('data-slide-no');
+        return sno ? parseInt(sno, 10) : null;
+    }
+
+    var GATE_DISPLAY_NAMES = {
+        'g1_retrieval': 'Retrieval score',
+        'g2_citation': 'Citation score',
+        'g2.5_grounding': 'Grounding score',
+        'g3_format': 'Format score',
+        'g4_novelty': 'Novelty score',
+        'g5_commit': 'Commit score',
+        'coverage_sensor': 'Coverage score'
+    };
+
+    function formatDuration(seconds) {
+        if (seconds === null || seconds === undefined || seconds === 0) return '< 1s';
+        if (seconds < 60) return seconds.toFixed(1) + 's';
+        var m = Math.floor(seconds / 60);
+        var s_rem = Math.round(seconds % 60);
+        return m + 'm ' + s_rem + 's';
+    }
+
+    function buildSlideStats(s) {
+        var stats = [];
+        var avgs = cachedDeckStats && cachedDeckStats.deck_averages || null;
+        var failures = s.gate_failures || 0;
+        var failVal = failures === 0 ? 'none' : failures + ' pre-pass';
+        if (failures > 0 && avgs) failVal += ' (avg ' + avgs.avg_gate_failures.toFixed(1) + ')';
+        stats.push({
+            label: 'Gate failures:',
+            value: failVal,
+            src: 'gate_log'
+        });
+        var retries = s.retry_count || 0;
+        var retryVal = retries === 0 ? 'none' : retries + (retries === 1 ? ' draft' : ' drafts');
+        if (retries > 0 && avgs) retryVal += ' (avg ' + avgs.avg_retry_count.toFixed(1) + ')';
+        stats.push({
+            label: 'Rewrites:',
+            value: retryVal,
+            src: 'slide'
+        });
+        if (s.top_fail_reason) {
+            stats.push({
+                label: 'Blocked by:',
+                value: s.top_fail_reason.gate_name + ' — ' + (s.top_fail_reason.reason || 'threshold not met'),
+                src: 'gate_log'
+            });
+        }
+        var scores = s.gate_scores || {};
+        var scoreKeys = Object.keys(scores);
+        scoreKeys.forEach(function(k) {
+            var displayName = GATE_DISPLAY_NAMES[k] || k + ' score';
+            var raw = scores[k];
+            var displayValue = (k === 'g4_novelty') ? (1 - raw) : raw;
+            var scoreClass = displayValue >= 0.8 ? 'score-good' : displayValue >= 0.5 ? 'score-mid' : 'score-low';
+            stats.push({
+                label: displayName + ':',
+                value: (typeof displayValue === 'number') ? displayValue.toFixed(2) : displayValue,
+                src: 'gate_log',
+                scoreClass: scoreClass
+            });
+        });
+        if (s.gen_seconds !== null && s.gen_seconds !== undefined) {
+            stats.push({
+                label: 'Gate span:',
+                value: formatDuration(s.gen_seconds),
+                src: 'gate_log'
+            });
+        }
+        var citations = s.citation_count || 0;
+        var citVal = citations + (citations === 1 ? ' chunk' : ' chunks');
+        if (s.top_cited_source) citVal += ' from "' + s.top_cited_source + '"';
+        if (citations > 0 && avgs) citVal += ' (avg: ' + avgs.avg_citation_count.toFixed(1) + ')';
+        stats.push({
+            label: 'Grounded in:',
+            value: citVal,
+            src: 'slide.citations'
+        });
+        if (s.slide_type) {
+            stats.push({
+                label: 'Slide type:',
+                value: s.slide_type,
+                src: 'slide'
+            });
+        }
+        if (s.intent) {
+            stats.push({
+                label: 'Intent:',
+                value: s.intent,
+                src: 'slide'
+            });
+        }
+        return stats;
+    }
+
+    function buildDeckStats(d) {
+        var stats = [];
+        if (d.health_score !== null && d.health_score !== undefined) {
+            var hs = d.health_score;
+            var hsClass = hs >= 80 ? 'score-good' : hs >= 60 ? 'score-mid' : 'score-low';
+            stats.push({
+                label: 'Deck health:',
+                value: hs + '%',
+                src: 'computed',
+                scoreClass: hsClass
+            });
+        }
+        stats.push({
+            label: 'Quality gates run:',
+            value: d.total_gate_checks + ' total checks',
+            src: 'gate_log'
+        });
+        stats.push({
+            label: 'Gate pass rate:',
+            value: d.pass_rate + '% (' + d.total_passes + '/' + d.total_gate_checks + ')',
+            src: 'gate_log'
+        });
+        stats.push({
+            label: 'Total rewrites:',
+            value: d.total_retries + ' across ' + d.slide_count + ' slides',
+            src: 'v_deck_health'
+        });
+        stats.push({
+            label: 'Intent coverage:',
+            value: d.covered_intents + '/' + d.slide_count + ' (' + d.completion_pct + '%)',
+            src: 'v_deck_coverage'
+        });
+        if (d.top_failure_gate) {
+            stats.push({
+                label: 'Hardest gate:',
+                value: d.top_failure_gate.gate_name + ' (' + d.top_failure_gate.occurrence_count + ' failures)',
+                src: 'v_gate_failures'
+            });
+        }
+        if (d.estimated_cost_usd > 0) {
+            var totalTokens = (d.prompt_tokens || 0) + (d.completion_tokens || 0);
+            var tokenStr = totalTokens >= 1000 ? Math.round(totalTokens / 1000) + 'K' : totalTokens;
+            stats.push({
+                label: 'Generation cost:',
+                value: '$' + d.estimated_cost_usd.toFixed(4) + ' · ' + tokenStr + ' tokens',
+                src: 'generation_run'
+            });
+        }
+        if (d.top_source) {
+            stats.push({
+                label: 'Most cited:',
+                value: '"' + d.top_source.title + '" (' + d.top_source.citations + ' citations)',
+                src: 'v_top_sources'
+            });
+        }
+        stats.push({
+            label: 'Knowledge base:',
+            value: d.doc_count + ' docs · ' + d.chunk_count + ' chunks',
+            src: 'doc / chunk'
+        });
+        if (d.total_gen_seconds !== null && d.total_gen_seconds !== undefined) {
+            stats.push({
+                label: 'Total gen time:',
+                value: formatDuration(d.total_gen_seconds),
+                src: 'generation_run'
+            });
+        }
+        return stats;
+    }
+
+    function interleaveStats(slideStats, deckStats) {
+        var result = [];
+        var si = 0, di = 0;
+        // 2 slide stats, then 1 deck stat, repeat
+        while (si < slideStats.length || di < deckStats.length) {
+            if (si < slideStats.length) { result.push(slideStats[si++]); }
+            if (si < slideStats.length) { result.push(slideStats[si++]); }
+            if (di < deckStats.length) { result.push(deckStats[di++]); }
+        }
+        return result;
+    }
+
+    function displayStat(stat) {
+        var row2label = document.querySelector('#live-status-panel .ls-row:nth-child(2) .ls-label');
+        var row2val   = document.getElementById('ls-gate');
+        var row3label = document.querySelector('#live-status-panel .ls-row:nth-child(3) .ls-label');
+        var row3val   = document.getElementById('ls-llm');
+        var row5label = document.querySelector('#live-status-panel .ls-row:nth-child(5) .ls-label');
+        var row5val   = document.getElementById('ls-checkpoint');
+
+        var rows = [
+            row2label.parentElement,
+            row3label.parentElement,
+            row5label.parentElement
+        ];
+
+        // Fade out
+        rows.forEach(function(r) { r.classList.add('fading'); });
+
+        setTimeout(function() {
+            row2label.textContent = stat.label;
+            row2val.textContent = stat.value;
+            row2val.className = 'ls-val' + (stat.scoreClass ? ' ' + stat.scoreClass : '');
+
+            row3label.textContent = '';
+            row3val.textContent = '';
+            row3val.className = 'ls-val';
+
+            row5label.textContent = 'src:';
+            row5val.textContent = stat.src;
+            row5val.className = 'ls-val telemetry-src';
+
+            // Fade in
+            rows.forEach(function(r) { r.classList.remove('fading'); });
+        }, 600);
+    }
+
+    function updateProgressDots() {
+        var dotsContainer = document.getElementById('ls-progress-dots');
+        var dots = dotsContainer.querySelectorAll('.prog-dot');
+        var dotCount = dots.length;
+        if (dotCount === 0) return;
+        var activeIdx = telemetryStats.length <= 12
+            ? (telemetryIndex % telemetryStats.length)
+            : Math.floor((telemetryIndex % telemetryStats.length) / telemetryStats.length * 12);
+        for (var i = 0; i < dotCount; i++) {
+            dots[i].classList.toggle('active', i === activeIdx);
+        }
+    }
+
+    function rotateTelemetry() {
+        if (telemetryStats.length === 0) return;
+        telemetryIndex = telemetryIndex % telemetryStats.length;
+        displayStat(telemetryStats[telemetryIndex]);
+        updateProgressDots();
+        telemetryIndex++;
+    }
+
+    function applyStats(slideNo, slideData) {
+        var deckItems = cachedDeckStats ? buildDeckStats(cachedDeckStats) : [];
+        var slideItems = slideData ? buildSlideStats(slideData) : [];
+
+        if (slideItems.length > 0) {
+            telemetryStats = interleaveStats(slideItems, deckItems);
+        } else {
+            telemetryStats = deckItems;
+        }
+
+        telemetryIndex = 0;
+
+        var dotsContainer = document.getElementById('ls-progress-dots');
+        var dotCount = Math.min(telemetryStats.length, 12);
+        dotsContainer.innerHTML = '';
+        for (var i = 0; i < dotCount; i++) {
+            var dot = document.createElement('span');
+            dot.className = 'prog-dot';
+            dotsContainer.appendChild(dot);
+        }
+
+        rotateTelemetry();
+
+        if (telemetryInterval) clearInterval(telemetryInterval);
+        telemetryInterval = setInterval(rotateTelemetry, 8000);
+    }
+
+    async function fetchAndStartRotation(slideNo) {
+        // Immediately show cached data if available (no flicker on rapid nav)
+        if (slideNo !== null && cachedSlideStats[slideNo]) {
+            applyStats(slideNo, cachedSlideStats[slideNo]);
+        } else if (cachedDeckStats) {
+            applyStats(slideNo, null);
+        }
+
+        // Abort any in-flight fetch from a previous slide change
+        if (fetchAbortController) fetchAbortController.abort();
+        fetchAbortController = new AbortController();
+
+        var url = '/api/stats/' + deckId;
+        if (slideNo !== null) url += '?slide_no=' + slideNo;
+
+        try {
+            var resp = await fetch(url, { signal: fetchAbortController.signal });
+            if (!resp.ok) return;
+            var data = await resp.json();
+
+            if (data.deck) cachedDeckStats = data.deck;
+            if (data.slide && slideNo !== null) cachedSlideStats[slideNo] = data.slide;
+
+            // Only apply if we're still on the same slide (guard against late responses)
+            if (getCurrentSlideNo() === slideNo || slideNo === null) {
+                applyStats(slideNo, data.slide || null);
+            }
+        } catch (err) {
+            if (err.name === 'AbortError') return;
+            // On other fetch failures, cached data is already showing
+        }
+    }
+
+    function startTelemetryMode() {
+        var panel = document.getElementById('live-status-panel');
+        panel.classList.add('telemetry-mode');
+        panel.style.pointerEvents = 'auto';
+
+        panel.addEventListener('mouseenter', function() {
+            clearInterval(telemetryInterval);
+            telemetryInterval = null;
+        });
+        panel.addEventListener('mouseleave', function() {
+            clearInterval(telemetryInterval);
+            telemetryInterval = setInterval(rotateTelemetry, 8000);
+        });
+
+        // Row 1: header
+        var row1label = document.querySelector('#live-status-panel .ls-row:nth-child(1) .ls-label');
+        var row1val   = document.getElementById('ls-rag');
+        row1label.textContent = '';
+        row1val.textContent = 'CONTROL PLANE TELEMETRY';
+        row1val.className = 'ls-val telemetry-header';
+
+        // Row 4: keep slide count
+        var countEl = document.getElementById('ls-count');
+        countEl.className = 'ls-val done';
+
+        // Dot: cyan telemetry pulse
+        var dot = document.getElementById('ls-dot');
+        dot.className = 'ls-dot telemetry-pulse';
+        dot.style.background = '';
+
+        document.getElementById('ls-progress-dots').style.display = 'flex';
+
+        // Track slide changes
+        currentSlideNo = getCurrentSlideNo();
+        if (!panelUserHidden) fetchAndStartRotation(currentSlideNo);
+
+        // Use multiple event sources to catch all navigation methods
+        document.addEventListener('keyup', handleSlideChange);
+        document.querySelector('.reveal').addEventListener('click', handleSlideChange);
+        // MutationObserver catches programmatic navigation and touch swipes
+        var slidesMutObs = new MutationObserver(handleSlideChange);
+        slidesMutObs.observe(
+            document.querySelector('.reveal .slides'),
+            { attributes: true, subtree: true, attributeFilter: ['class'] }
+        );
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 't' || e.key === 'T') {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            var panel = document.getElementById('live-status-panel');
+            panelUserHidden = !panelUserHidden;
+            panel.classList.toggle('user-hidden', panelUserHidden);
+            if (panelUserHidden) {
+                clearInterval(telemetryInterval);
+                telemetryInterval = null;
+            } else if (panel.classList.contains('telemetry-mode')) {
+                fetchAndStartRotation(getCurrentSlideNo());
+            }
+        }
+    });
+
+    function handleSlideChange() {
+        if (panelUserHidden) return;
+        if (slideChangeDebounce) clearTimeout(slideChangeDebounce);
+        slideChangeDebounce = setTimeout(function() {
+            slideChangeDebounce = null;
+            var newSlideNo = getCurrentSlideNo();
+            if (newSlideNo !== currentSlideNo) {
+                currentSlideNo = newSlideNo;
+                fetchAndStartRotation(currentSlideNo);
+            }
+        }, 200);
+    }
+{% endblock %}

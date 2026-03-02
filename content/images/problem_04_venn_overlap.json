@@ -1,0 +1,8 @@
+{
+  "caption": "Venn diagram showing five overlapping circles representing different data stores: Vector DB, Relational DB, Cache, Message Queue, and Audit Log with red highlighted overlap regions showing data sync issues, consistency gaps, and no transactions between systems",
+  "alt_text": "Five overlapping Venn diagram circles for data stores with red overlap zones highlighting sync issues and consistency gaps",
+  "use_cases": ["problem", "infrastructure", "comparison"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for Scale23x presentation",
+  "style": "chart"
+}

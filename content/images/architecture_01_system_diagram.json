@@ -1,0 +1,8 @@
+{
+  "caption": "System architecture diagram with five components: large central PostgreSQL cylinder containing pgvector pg_trgm functions gates and logs, Ingestion Pipeline box with embed and store arrow to Postgres, LLM Claude cloud with bidirectional arrow, MCP Server box with typed tools connection, and Renderer reveal.js box fetching slides from Postgres",
+  "alt_text": "Five-component system architecture with central PostgreSQL database connected to ingestion pipeline, LLM Claude, MCP server, and reveal.js renderer",
+  "use_cases": ["architecture"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for Scale23x presentation",
+  "style": "diagram"
+}

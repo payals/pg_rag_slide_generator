@@ -1,0 +1,8 @@
+{
+  "caption": "Technical diagram showing PostgreSQL hybrid search with central fn_hybrid_search function box receiving three input arrows: Semantic Search using pgvector cosine similarity with vector grid icon in blue, Trigram Search using pg_trgm similarity score with fuzzy text icon in green, Full-Text Search using tsvector tsquery with keyword highlight icon in orange, merging inside function into RRF Reciprocal Rank Fusion outputting single ranked results list",
+  "alt_text": "Hybrid search diagram with three inputs: blue pgvector semantic, green pg_trgm trigram, and orange tsvector full-text merging through RRF into ranked results",
+  "use_cases": ["rag-in-postgres", "capabilities", "what-is-rag"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for Scale23x presentation",
+  "style": "diagram"
+}

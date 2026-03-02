@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{{ title }}</title>
+    
+    <!-- 
+    Postgres-First AI Slide Generator
+    Generated deck: {{ deck_id }}
+    Generated at: {{ generated_at }}
+    -->
+    
+    <!-- Reveal.js 5.x CSS (embedded for offline use) -->
+    <style>
+        /* Reset and base styles */
+        html, body, .reveal div, .reveal span, .reveal applet, .reveal object, .reveal iframe,
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6, .reveal p,
+        .reveal blockquote, .reveal pre, .reveal a, .reveal abbr, .reveal acronym, .reveal address,
+        .reveal big, .reveal cite, .reveal code, .reveal del, .reveal dfn, .reveal em, .reveal img,
+        .reveal ins, .reveal kbd, .reveal q, .reveal s, .reveal samp, .reveal small, .reveal strike,
+        .reveal strong, .reveal sub, .reveal sup, .reveal tt, .reveal var, .reveal b, .reveal u,
+        .reveal center, .reveal dl, .reveal dt, .reveal dd, .reveal ol, .reveal ul, .reveal li,
+        .reveal fieldset, .reveal form, .reveal label, .reveal legend, .reveal table, .reveal caption,
+        .reveal tbody, .reveal tfoot, .reveal thead, .reveal tr, .reveal th, .reveal td, .reveal article,
+        .reveal aside, .reveal canvas, .reveal details, .reveal embed, .reveal figure, .reveal figcaption,
+        .reveal footer, .reveal header, .reveal hgroup, .reveal menu, .reveal nav, .reveal output,
+        .reveal ruby, .reveal section, .reveal summary, .reveal time, .reveal mark, .reveal audio,
+        .reveal video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        .reveal article, .reveal aside, .reveal details, .reveal figcaption, .reveal figure,
+        .reveal footer, .reveal header, .reveal hgroup, .reveal menu, .reveal nav, .reveal section {
+            display: block;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* Theme CSS Custom Properties */
+        :root {
+            --slide-bg: #191919;
+            --slide-text: #fff;
+            --accent-color: #42affa;
+            --accent-secondary: #a5c4d4;
+            --divider-bg: linear-gradient(135deg, #e94560 0%, #533483 100%);
+            --muted-color: #888;
+        }
+
+        body {
+            position: relative;
+            line-height: 1;
+            background-color: var(--slide-bg);
+            color: var(--slide-text);
+        }
+
+        /* Reveal.js core */
+        .reveal {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .reveal .slides {
+            position: absolute;
+            width: 1920px;
+            height: 1080px;
+            left: 50%;
+            top: 50%;
+            transform-origin: center center;
+            pointer-events: none;
+            overflow: visible;
+            z-index: 1;
+            text-align: center;
+            perspective: 600px;
+            perspective-origin: 50% 40%;
+            visibility: hidden;
+            will-change: transform;
+        }
+
+        .reveal .slides > section {
+            perspective: 600px;
+        }
+
+        .reveal .slides > section,
+        .reveal .slides > section > section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: absolute;
+            width: 100%;
+            padding: 20px;
+            pointer-events: auto;
+            z-index: 10;
+            box-sizing: border-box;
+            transform-style: flat;
+            will-change: transform, opacity;
+        }
+
+        .reveal .slides > section {
+            height: 100%;
+            top: 0;
+            min-height: auto !important;
+        }
+
+        /* Navigation controls */
+        .reveal .controls {
+            display: flex;
+            position: absolute;
+            bottom: 14px;
+            right: 14px;
+            z-index: 11;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .reveal .controls button {
+            padding: 0;
+            background: transparent;
+            border: 0;
+            outline: 0;
+            cursor: pointer;
+            color: #42affa;
+            transform: scale(0.9);
+            transition: color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+            opacity: 0.7;
+        }
+
+        .reveal .controls button:hover {
+            color: #8dcffc;
+            opacity: 1;
+        }
+
+        .reveal .controls .navigate-left,
+        .reveal .controls .navigate-right,
+        .reveal .controls .navigate-up,
+        .reveal .controls .navigate-down {
+            display: inline-block;
+            width: 2.5em;
+            height: 2.5em;
+            line-height: 2.5em;
+        }
+
+        /* Progress bar */
+        .reveal .progress {
+            position: absolute;
+            display: none;
+            height: 3px;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            z-index: 10;
+            background-color: rgba(0, 0, 0, 0.2);
+            color: #42affa;
+        }
+
+        .reveal .progress span {
+            display: block;
+            height: 100%;
+            background-color: currentColor;
+            transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+        }
+
+        /* UI overlay — scales identically to .slides so logo/status stay anchored to canvas */
+        .reveal .slide-ui-overlay {
+            position: absolute;
+            width: 1920px;
+            height: 1080px;
+            left: 50%;
+            top: 50%;
+            transform-origin: center center;
+            pointer-events: none;
+            z-index: 31;
+            visibility: hidden;
+            will-change: transform;
+        }
+
+        /* Persistent logo — positioned within the 1920x1080 overlay canvas */
+        .reveal .slide-ui-overlay .slide-logo {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            pointer-events: none;
+        }
+
+        .reveal .slide-ui-overlay .slide-logo img {
+            height: 75px;
+            width: auto;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+            filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.4))
+                    drop-shadow(0 1px 3px rgba(255, 255, 255, 0.05));
+        }
+
+        .reveal .slide-ui-overlay .slide-logo:hover img {
+            opacity: 1.0;
+        }
+
+        .reveal .slide-ui-overlay .slide-number {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 21px;
+            color: rgba(255, 255, 255, 0.5);
+            font-family: var(--heading-font);
+            pointer-events: none;
+        }
+
+        /* Placeholder for live status panel (added by reveal_live.html) */
+
+        /* Theme: Dark Professional */
+        .reveal {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 42px;
+            font-weight: normal;
+            color: var(--slide-text);
+        }
+
+        .reveal .slides section,
+        .reveal .slides section > section {
+            line-height: 1.3;
+            font-weight: inherit;
+        }
+
+        /* Headers */
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            margin: 0 0 20px 0;
+            color: #fff;
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: normal;
+            text-transform: none;
+            text-shadow: none;
+            word-wrap: break-word;
+        }
+
+        .reveal h1 { font-size: 2.5em; }
+        .reveal h2 { font-size: 1.6em; }
+        .reveal h3 { font-size: 1.3em; }
+        .reveal h4 { font-size: 1em; }
+
+        /* Slide background */
+        .reveal .slides section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 8px;
+        }
+
+        /* Title slide */
+        .reveal .slides section.title-slide {
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+        }
+
+        .reveal .slides section.title-slide h1 {
+            color: var(--accent-color);
+            font-size: clamp(1.4em, 54px, 2.2em);
+            margin-bottom: 30px;
+            overflow-wrap: break-word;
+            word-break: break-word;
+        }
+
+        .reveal .slides section.title-slide .subtitle {
+            font-size: 1.2em;
+            color: var(--accent-secondary);
+            margin-bottom: 40px;
+        }
+
+        .reveal .slides section.title-slide .speaker {
+            font-size: 1em;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .reveal .slides section.title-slide .job-title {
+            font-size: 0.85em;
+            color: var(--muted-color);
+            margin-bottom: 4px;
+        }
+
+        .reveal .slides section.title-slide .company {
+            font-size: 0.85em;
+            color: var(--muted-color);
+            margin-bottom: 10px;
+        }
+
+        .reveal .slides section.title-slide .company a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .reveal .slides section.title-slide .company a:hover {
+            text-decoration: underline;
+        }
+
+        .reveal .slides section.title-slide .event {
+            font-size: 0.8em;
+            color: var(--muted-color);
+        }
+
+        /* Section dividers */
+        .reveal .slides section.divider-slide {
+            background: var(--divider-bg);
+        }
+
+        .reveal .slides section.divider-slide h2 {
+            font-size: 2.5em;
+            color: #fff;
+        }
+
+        /* Divider image — covers the entire slide */
+        .reveal .slides section.divider-slide .divider-bg-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* Dark background when divider has an image (no gradient) */
+        .reveal .slides section.divider-slide:has(.divider-bg-img) {
+            background: #0d1117;
+        }
+
+        /* Thanks slide */
+        .reveal .slides section.thanks-slide {
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+        }
+
+        .reveal .slides section.thanks-slide ul {
+            margin-left: 20%;
+            text-align: left;
+        }
+
+        /* Lists */
+        .reveal ul, .reveal ol {
+            display: inline-block;
+            text-align: left;
+            margin: 0 0 0 1em;
+        }
+
+        .reveal ol { list-style-type: decimal; }
+
+        .reveal ul {
+            list-style-type: disc;
+        }
+
+        .reveal ul ul { list-style-type: square; }
+        .reveal ul ul ul { list-style-type: circle; }
+
+        .reveal ul ul, .reveal ul ol, .reveal ol ol, .reveal ol ul {
+            display: block;
+            margin-left: 40px;
+        }
+
+        .reveal li {
+            margin: 15px 0;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }
+
+        /* Speaker notes indicator */
+        .reveal .slides section .notes-indicator {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.4em;
+            color: #666;
+        }
+
+        /* Transitions */
+        .reveal .slides section {
+            transition: transform 0.8s ease, opacity 0.8s ease;
+        }
+
+        .reveal .slides > section.past,
+        .reveal .slides > section > section.past {
+            opacity: 0;
+            transform: translate3d(-100%, 0, 0);
+        }
+
+        .reveal .slides > section.future,
+        .reveal .slides > section > section.future {
+            opacity: 0;
+            transform: translate3d(100%, 0, 0);
+        }
+
+        .reveal .slides > section.present,
+        .reveal .slides > section > section.present {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+
+        /* Print styles */
+        @media print {
+            body { background-color: #fff; }
+            .reveal { font-size: 16pt; }
+            .reveal .slides,
+            .reveal .slide-ui-overlay {
+                transform: none !important;
+                width: 100% !important;
+                height: auto !important;
+                visibility: visible !important;
+                position: static !important;
+            }
+            .reveal .slides section { page-break-after: always; }
+            .reveal .controls, .reveal .progress { display: none !important; }
+        }
+
+
+        /* Speaker notes window styles */
+        .speaker-notes-window {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        /* Slide content container — fill the full slide width */
+        .slide-content {
+            width: 100%;
+            max-width: 95%;
+            margin: 0 auto;
+            text-align: left;
+            padding: 0 2%;
+            box-sizing: border-box;
+        }
+
+        .slide-content h2 {
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        /* Auto-fit text scaling for dense slides */
+        .reveal .slides section {
+            overflow: visible;
+            align-items: center;
+        }
+
+        /* Slide content safety net: prevent visual overflow */
+        .reveal .slide-content {
+            max-height: 885px;
+            overflow: hidden;
+        }
+
+        /* Scale list items based on viewport height */
+        .reveal .slide-content ul {
+            max-height: 756px;
+            max-width: 100%;
+        }
+
+        .slide-body:not(.with-image) > ul {
+            display: table;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1.2em;
+        }
+
+        .reveal .slide-content li {
+            font-size: clamp(0.65em, 28px, 1.0em);
+            margin: clamp(10px, 22px, 30px) 0;
+            line-height: 1.4;
+        }
+
+        /* Slides with exactly 3 bullets get larger text */
+        .reveal .slide-content > .slide-body > ul > li:first-child:nth-last-child(3),
+        .reveal .slide-content > .slide-body > ul > li:first-child:nth-last-child(3) ~ li {
+            font-size: clamp(0.78em, 34px, 1.15em);
+            margin: clamp(14px, 28px, 36px) 0;
+        }
+
+        /* Nested bullets scale smaller */
+        .reveal .slide-content li li {
+            font-size: clamp(0.55em, 19px, 0.8em);
+            margin: clamp(4px, 9px, 12px) 0;
+        }
+
+        /* Headers also scale */
+        .reveal .slide-content h2 {
+            font-size: clamp(1.0em, 38px, 1.6em);
+            margin-bottom: clamp(15px, 27px, 35px);
+            padding-bottom: clamp(8px, 13px, 18px);
+            overflow-wrap: break-word;
+            word-break: break-word;
+        }
+
+        /* Slide with image layout — side by side, full width */
+        .slide-body.with-image {
+            display: flex;
+            gap: 3%;
+            align-items: center;
+            width: 100%;
+        }
+
+        .slide-body.with-image ul,
+        .slide-body.with-image .diagram-content {
+            flex: 1 1 55%;
+        }
+
+        .slide-image {
+            flex: 0 0 42%;
+            max-width: 45%;
+        }
+
+        /* Image-only slide: image is the sole child (no text sibling) */
+        .slide-body.with-image > .slide-image:only-child {
+            flex: 1 1 100%;
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        .slide-body.with-image > .slide-image:only-child img {
+            max-height: 70vh;
+            object-fit: contain;
+        }
+
+        .slide-image img {
+            width: 100%;
+            max-height: 756px;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        }
+
+
+        /* Notes aside styling */
+        .reveal aside.notes {
+            display: none;
+        }
+
+        /* Statement layout — .reveal prefix beats the CSS reset */
+        .reveal .statement-text {
+            font-size: 1.6em;
+            font-weight: 600;
+            text-align: center;
+            max-width: 80%;
+            margin: 1em auto 0.5em;
+            line-height: 1.4;
+        }
+        .reveal .statement-subtitle {
+            font-size: 1.1em;
+            text-align: center;
+            opacity: 0.7;
+            max-width: 70%;
+            margin: 0 auto;
+        }
+
+        /* Split layout */
+        .reveal .split-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2em;
+            width: 100%;
+        }
+        .reveal .split-col h3 {
+            font-size: 0.9em;
+            margin-bottom: 0.5em;
+            border-bottom: 2px solid currentColor;
+            padding-bottom: 0.3em;
+            opacity: 0.9;
+        }
+        .reveal .split-col ul { font-size: 0.85em; }
+
+        /* Flow pipeline layout */
+        .reveal .flow-pipeline {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3em;
+            margin-top: 1em;
+        }
+        .reveal .flow-pair {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3em;
+        }
+        .reveal .flow-step {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            padding: 0.5em 0.8em;
+            text-align: center;
+            min-width: 4em;
+            max-width: 220px;
+        }
+        .reveal .flow-label {
+            display: block;
+            font-weight: 700;
+            font-size: 0.9em;
+        }
+        .reveal .flow-caption {
+            display: block;
+            font-size: 0.7em;
+            opacity: 0.7;
+            margin-top: 0.2em;
+        }
+        .reveal .flow-arrow {
+            font-size: 1.4em;
+            opacity: 0.5;
+        }
+
+        /* Code block layout — must beat .reveal pre / .reveal code reset */
+        .reveal .code-block {
+            background: #0d1117;
+            color: #cdd6f4;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            padding: 1em;
+            font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas, monospace;
+            font-size: 0.55em;
+            line-height: 1.5;
+            text-align: left;
+            overflow-x: auto;
+            margin: 0.5em 0;
+        }
+        .reveal .code-block code {
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            color: inherit;
+        }
+        .reveal .code-explain {
+            font-size: 0.75em;
+            opacity: 0.85;
+            margin: 0.4em 0;
+            line-height: 1.4;
+        }
+
+        /* Diagram layout */
+        .reveal .diagram-callout {
+            font-size: 0.85em;
+            padding: 0.3em 0.8em;
+            margin: 0.3em auto;
+            max-width: 80%;
+            background: rgba(255,255,255,0.05);
+            border-left: 3px solid currentColor;
+        }
+        .reveal .diagram-caption {
+            font-size: 0.8em;
+            opacity: 0.7;
+            text-align: center;
+            margin-top: 0.5em;
+        }
+
+        {% if theme_overrides %}
+        /* Theme overrides */
+        {{ theme_overrides }}
+        {% endif %}
+    </style>
+    <noscript><style>
+        .reveal .slides,
+        .reveal .slide-ui-overlay {
+            visibility: visible !important;
+            transform: translate(-50%, -50%) scale(0.5) !important;
+        }
+    </style></noscript>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <div class="reveal">
+        <!-- UI overlay — scales with the canvas so overlays stay anchored -->
+        <div class="slide-ui-overlay">
+            {% block ui_overlay %}
+            <div class="slide-logo">
+                <img src="{{ logo_path | default('images/netapp_logo.png') }}?v=2" alt="NetApp">
+            </div>
+            <div class="slide-number"></div>
+            {% endblock %}
+        </div>
+
+        <div class="slides">
+            {% block slides_content %}
+            {% for slide in slides %}
+            <section class="{% if slide.is_title %}title-slide{% elif slide.is_divider %}divider-slide{% elif slide.is_thanks %}thanks-slide{% endif %}">
+                <div class="slide-content">
+                    {% if slide.is_title %}
+                    <!-- Title Slide -->
+                    <h1>{{ slide.title }}</h1>
+                    {% if slide.subtitle %}<p class="subtitle">{{ slide.subtitle }}</p>{% endif %}
+                    {% if slide.speaker %}<p class="speaker">{{ slide.speaker }}</p>{% endif %}
+                    {% if slide.job_title %}<p class="job-title">{{ slide.job_title }}</p>{% endif %}
+                    {% if slide.company %}<p class="company">{% if slide.company_url %}<a href="{{ slide.company_url }}">{{ slide.company }}</a>{% else %}{{ slide.company }}{% endif %}</p>{% endif %}
+                    {% if slide.event %}<p class="event">{{ slide.event }}</p>{% endif %}
+                    
+                    {% elif slide.is_divider %}
+                    <!-- Section Divider -->
+                    {% if slide.image_path %}
+                    <img src="{{ slide.image_path }}" alt="{{ slide.image_alt | default('Section divider') }}" class="divider-bg-img">
+                    {% else %}
+                    <h2>{{ slide.title }}</h2>
+                    {% endif %}
+                    
+                    {% elif slide.is_thanks %}
+                    <!-- Thanks Slide -->
+                    <h2>{{ slide.title }}</h2>
+                    {% if slide.bullets %}
+                    <ul>
+                        {% for bullet in slide.bullets %}
+                        <li>{{ bullet }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    
+                    {% else %}
+                    <!-- Content Slide -->
+                    <h2>{{ slide.title }}</h2>
+                    <div class="slide-body{% if slide.image_path %} with-image{% endif %}">
+
+                        {% include "_slide_type_body.html" %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                {% if slide.speaker_notes %}
+                <aside class="notes">{{ slide.speaker_notes }}</aside>
+                {% endif %}
+            </section>
+            {% endfor %}
+            {% endblock %}
+        </div>
+        
+        <!-- Navigation controls -->
+        <div class="controls">
+            <button class="navigate-left" aria-label="previous slide">◀</button>
+            <button class="navigate-right" aria-label="next slide">▶</button>
+        </div>
+        
+        <!-- Progress bar -->
+        <div class="progress"><span></span></div>
+    </div>
+
+    {% block extra_body %}{% endblock %}
+
+    <!-- Reveal.js 5.x Core (embedded for offline use) -->
+    <script>
+    (function() {
+        'use strict';
+        
+        // Minimal Reveal.js implementation for slide navigation
+        const Reveal = {
+            state: {
+                currentSlide: 0,
+                totalSlides: 0,
+                slides: [],
+            },
+            
+            initialize: function(config) {
+                const slidesContainer = document.querySelector('.reveal .slides');
+                this.state.slides = Array.from(slidesContainer.querySelectorAll(':scope > section'));
+                this.state.totalSlides = this.state.slides.length;
+                
+                // Set initial state
+                this.goToSlide(0);
+                
+                // Setup keyboard navigation
+                this.setupKeyboardNavigation();
+                
+                // Setup button navigation
+                this.setupButtonNavigation();
+                
+                // Setup progress bar
+                this.updateProgress();
+                
+                // Show progress bar
+                document.querySelector('.reveal .progress').style.display = 'block';
+                
+                // Scale the canvas to fit the viewport
+                this.layout();
+                window.addEventListener('resize', this.layout.bind(this));
+                
+                console.log('Reveal.js initialized with', this.state.totalSlides, 'slides');
+            },
+            
+            layout: function() {
+                var slides = document.querySelector('.reveal .slides');
+                if (!slides) return;
+                var scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+                var tx = 'translate(-50%, -50%) scale(' + scale + ')';
+                slides.style.transform = tx;
+                slides.style.visibility = 'visible';
+
+                var overlay = document.querySelector('.reveal .slide-ui-overlay');
+                if (overlay) {
+                    overlay.style.transform = tx;
+                    overlay.style.visibility = 'visible';
+                }
+            },
+            
+            setupKeyboardNavigation: function() {
+                document.addEventListener('keydown', (e) => {
+                    switch(e.key) {
+                        case 'ArrowRight':
+                        case 'ArrowDown':
+                        case ' ':
+                        case 'PageDown':
+                            this.next();
+                            e.preventDefault();
+                            break;
+                        case 'ArrowLeft':
+                        case 'ArrowUp':
+                        case 'PageUp':
+                            this.prev();
+                            e.preventDefault();
+                            break;
+                        case 'Home':
+                            this.goToSlide(0);
+                            e.preventDefault();
+                            break;
+                        case 'End':
+                            this.goToSlide(this.state.totalSlides - 1);
+                            e.preventDefault();
+                            break;
+                        case 's':
+                        case 'S':
+                            this.openSpeakerNotes();
+                            break;
+                    }
+                });
+            },
+            
+            setupButtonNavigation: function() {
+                const prevBtn = document.querySelector('.navigate-left');
+                const nextBtn = document.querySelector('.navigate-right');
+                
+                if (prevBtn) prevBtn.addEventListener('click', () => this.prev());
+                if (nextBtn) nextBtn.addEventListener('click', () => this.next());
+            },
+            
+            goToSlide: function(index) {
+                if (index < 0 || index >= this.state.totalSlides) return;
+                
+                this.state.slides.forEach((slide, i) => {
+                    slide.classList.remove('present', 'past', 'future');
+                    if (i < index) {
+                        slide.classList.add('past');
+                    } else if (i > index) {
+                        slide.classList.add('future');
+                    } else {
+                        slide.classList.add('present');
+                    }
+                });
+                
+                this.state.currentSlide = index;
+                this.updateProgress();
+                this.updateSlideNumber();
+            },
+            
+            next: function() {
+                this.goToSlide(this.state.currentSlide + 1);
+            },
+            
+            prev: function() {
+                this.goToSlide(this.state.currentSlide - 1);
+            },
+            
+            updateProgress: function() {
+                const progress = document.querySelector('.reveal .progress span');
+                if (progress) {
+                    const percent = (this.state.currentSlide / (this.state.totalSlides - 1)) * 100;
+                    progress.style.width = percent + '%';
+                }
+            },
+
+            updateSlideNumber: function() {
+                var el = document.querySelector('.slide-ui-overlay .slide-number');
+                if (el) {
+                    el.textContent = (this.state.currentSlide + 1) + ' / ' + this.state.totalSlides;
+                }
+            },
+            
+            openSpeakerNotes: function() {
+                const currentSlide = this.state.slides[this.state.currentSlide];
+                const notes = currentSlide.querySelector('aside.notes');
+                
+                if (!notes) {
+                    alert('No speaker notes for this slide');
+                    return;
+                }
+                
+                const notesWindow = window.open('', 'Speaker Notes', 
+                    'width=600,height=400,scrollbars=yes');
+                
+                if (notesWindow) {
+                    notesWindow.document.write(`
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <title>Speaker Notes - Slide ${this.state.currentSlide + 1}</title>
+                            <style>
+                                body {
+                                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                                    padding: 20px;
+                                    background: #1a1a2e;
+                                    color: #fff;
+                                    line-height: 1.6;
+                                }
+                                h1 { 
+                                    font-size: 1.2em; 
+                                    color: var(--accent-color, #42affa);
+                                    border-bottom: 1px solid #333;
+                                    padding-bottom: 10px;
+                                }
+                                pre {
+                                    white-space: pre-wrap;
+                                    font-family: inherit;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <h1>Slide ${this.state.currentSlide + 1} Notes</h1>
+                            <pre>${notes.innerHTML}</pre>
+                        </body>
+                        </html>
+                    `);
+                    notesWindow.document.close();
+                }
+            }
+        };
+        
+        // Initialize on DOM ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => Reveal.initialize());
+        } else {
+            Reveal.initialize();
+        }
+        
+        // Export for console access
+        window.Reveal = Reveal;
+
+        {% block extra_scripts %}{% endblock %}
+    })();
+    </script>
+</body>
+</html>

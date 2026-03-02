@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1600" height="900"
+     viewBox="0 0 1600 900">
+  <defs>
+    <style>
+      text { font-family: Arial, 'Segoe UI', Helvetica, sans-serif; }
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#0a0e27" rx="0"/>
+
+  <!-- Service boxes: 6 disconnected components arranged in a scattered layout -->
+
+  <!-- Vector DB (top-left) -->
+  <rect x="60" y="120" width="340" height="130" rx="12" fill="#111836" stroke="#e11d48" stroke-width="2"/>
+  <text x="230" y="170" font-size="28" fill="#e11d48" text-anchor="middle" dominant-baseline="middle" font-weight="700">Vector DB</text>
+  <text x="230" y="210" font-size="20" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle">Pinecone / Weaviate</text>
+
+  <!-- Relational DB (top-right) -->
+  <rect x="1200" y="100" width="340" height="130" rx="12" fill="#111836" stroke="#f59e0b" stroke-width="2"/>
+  <text x="1370" y="150" font-size="28" fill="#f59e0b" text-anchor="middle" dominant-baseline="middle" font-weight="700">Relational DB</text>
+  <text x="1370" y="190" font-size="20" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle">PostgreSQL / MySQL</text>
+
+  <!-- Cache (middle-left) -->
+  <rect x="100" y="410" width="320" height="130" rx="12" fill="#111836" stroke="#06b6d4" stroke-width="2"/>
+  <text x="260" y="460" font-size="28" fill="#06b6d4" text-anchor="middle" dominant-baseline="middle" font-weight="700">Cache</text>
+  <text x="260" y="500" font-size="20" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle">Redis / Memcached</text>
+
+  <!-- LLM API (middle-right) -->
+  <rect x="1180" y="390" width="340" height="130" rx="12" fill="#111836" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="1350" y="440" font-size="28" fill="#8b5cf6" text-anchor="middle" dominant-baseline="middle" font-weight="700">LLM API</text>
+  <text x="1350" y="480" font-size="20" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle">OpenAI / Anthropic</text>
+
+  <!-- Audit Log (bottom-left) -->
+  <rect x="160" y="680" width="320" height="130" rx="12" fill="#111836" stroke="#10b981" stroke-width="2"/>
+  <text x="320" y="730" font-size="28" fill="#10b981" text-anchor="middle" dominant-baseline="middle" font-weight="700">Audit Log</text>
+  <text x="320" y="770" font-size="20" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle">Elasticsearch / S3</text>
+
+  <!-- Object Store (bottom-right) -->
+  <rect x="1100" y="660" width="340" height="130" rx="12" fill="#111836" stroke="#f97316" stroke-width="2"/>
+  <text x="1270" y="710" font-size="28" fill="#f97316" text-anchor="middle" dominant-baseline="middle" font-weight="700">Object Store</text>
+  <text x="1270" y="750" font-size="20" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle">S3 / GCS</text>
+
+  <!-- Chaotic red arrows connecting services in a tangled mess -->
+  <path d="M400,170 C650,90 950,90 1200,160" stroke="#ef4444" stroke-width="2" fill="none" stroke-dasharray="6,3" opacity="0.7"/>
+  <polygon points="1200,160 1190,152 1192,164" fill="#ef4444" opacity="0.7"/>
+
+  <path d="M230,250 C200,310 220,360 260,410" stroke="#ef4444" stroke-width="2" fill="none" stroke-dasharray="6,3" opacity="0.7"/>
+  <polygon points="260,410 254,400 264,400" fill="#ef4444" opacity="0.7"/>
+
+  <path d="M1370,230 C1380,290 1370,340 1350,390" stroke="#ef4444" stroke-width="2" fill="none" stroke-dasharray="6,3" opacity="0.7"/>
+  <polygon points="1350,390 1344,380 1356,380" fill="#ef4444" opacity="0.7"/>
+
+  <path d="M420,470 C650,440 900,420 1180,455" stroke="#ef4444" stroke-width="2" fill="none" stroke-dasharray="6,3" opacity="0.7"/>
+  <polygon points="1180,455 1170,449 1172,461" fill="#ef4444" opacity="0.7"/>
+
+  <path d="M1180,520 C900,600 600,640 480,720" stroke="#ef4444" stroke-width="2" fill="none" stroke-dasharray="6,3" opacity="0.7"/>
+  <polygon points="480,720 488,712 490,724" fill="#ef4444" opacity="0.7"/>
+
+  <path d="M360,540 C550,620 850,660 1100,710" stroke="#ef4444" stroke-width="2" fill="none" stroke-dasharray="6,3" opacity="0.7"/>
+  <polygon points="1100,710 1090,704 1092,716" fill="#ef4444" opacity="0.7"/>
+
+  <path d="M400,200 C700,320 1000,380 1180,440" stroke="#ef4444" stroke-width="2" fill="none" stroke-dasharray="6,3" opacity="0.5"/>
+  <polygon points="1180,440 1170,434 1172,446" fill="#ef4444" opacity="0.5"/>
+
+  <path d="M1200,220 C900,380 600,550 450,700" stroke="#ef4444" stroke-width="2" fill="none" stroke-dasharray="6,3" opacity="0.5"/>
+  <polygon points="450,700 456,690 462,702" fill="#ef4444" opacity="0.5"/>
+
+  <path d="M1100,700 C800,750 400,600 240,250" stroke="#ef4444" stroke-width="2" fill="none" stroke-dasharray="6,3" opacity="0.4"/>
+  <polygon points="240,250 234,260 246,258" fill="#ef4444" opacity="0.4"/>
+
+  <!-- Center label -->
+  <rect x="560" y="370" width="480" height="160" rx="16" fill="#1a0a0a" stroke="#ef4444" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="800" y="425" font-size="32" fill="#ef4444" text-anchor="middle" dominant-baseline="middle" font-weight="700">6 services</text>
+  <text x="800" y="465" font-size="24" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle">6 billing contracts</text>
+  <text x="800" y="500" font-size="24" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle">0 transactional guarantees</text>
+
+</svg>

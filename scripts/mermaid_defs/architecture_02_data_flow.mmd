@@ -1,0 +1,37 @@
+%%{init: {'theme': 'dark', 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 60, 'padding': 24}}}%%
+flowchart TB
+    DOCS["📥 Source Docs"] --> CHUNK["Embed & Chunk"]
+
+    subgraph PG["🐘  PostgreSQL — Control Plane"]
+        direction TB
+        NOTE["All business logic lives here<br/>MCP tools = Postgres functions<br/>Gates = Postgres functions"]
+        STORE[("docs · chunks<br/>pgvector · pg_trgm")]
+        SEARCH["fn_hybrid_search<br/>semantic + trigram + RRF"]
+        GATES["Validation Gates — all SQL<br/>G1 Retrieval · G2 Citations<br/>G2.5 Grounding · G3 Format<br/>G4 Novelty · G5 Image"]
+        COMMIT["fn_commit_slide<br/>→ gate_log · slide · deck"]
+        NOTE ~~~ STORE
+        STORE --> SEARCH
+        GATES -->|"✓ all pass"| COMMIT
+    end
+
+    MCP{{"FastMCP<br/>thin wrapper · no logic"}}
+
+    LLM["🤖 LLM + LangGraph<br/>(Claude / GPT)"]
+
+    RENDER["📊 Renderer → reveal.js"]
+
+    CHUNK -->|"embed + store"| STORE
+    SEARCH -->|"context chunks"| MCP
+    MCP <-->|"typed JSON"| LLM
+    MCP -->|"calls PG functions"| GATES
+    GATES -.->|"✗ fail · retry"| LLM
+    COMMIT -->|"committed slides"| RENDER
+
+    style NOTE fill:none,stroke:none,color:#94a3b8
+    style STORE fill:#336791,stroke:#2563eb,color:#f1f5f9
+    style SEARCH fill:#336791,stroke:#2563eb,color:#f1f5f9
+    style GATES fill:#1e3a5f,stroke:#2563eb,color:#f1f5f9
+    style COMMIT fill:#336791,stroke:#2563eb,color:#f1f5f9
+    style MCP fill:#1e293b,stroke:#64748b,color:#94a3b8
+    style LLM fill:#8b5cf6,stroke:#7c3aed,color:#f1f5f9
+    style RENDER fill:#22c55e,stroke:#16a34a,color:#f1f5f9

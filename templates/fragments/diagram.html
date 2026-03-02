@@ -1,0 +1,11 @@
+{% set _callouts = slide.content_data.callouts | default([]) | reject('equalto', '') | list %}
+{% if _callouts or slide.content_data.caption %}
+<div class="diagram-content">
+{% for c in _callouts %}
+<p class="diagram-callout">{{ c }}</p>
+{% endfor %}
+{% if slide.content_data.caption %}
+<p class="diagram-caption">{{ slide.content_data.caption }}</p>
+{% endif %}
+</div>
+{% endif %}

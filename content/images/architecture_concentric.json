@@ -1,0 +1,8 @@
+{
+  "caption": "Postgres RAG Architecture — concentric rings diagram with PostgreSQL 17 at the core as control plane, data store, and event bus; surrounded by FastMCP safety boundary (13 typed tools, cross-encoder reranker), LangGraph orchestrator (9-node state machine: pick_intent, retrieve, draft, validate, ground, commit), Kafka-based content ingestion (file watcher, aiokafka consumer, chunking, embedding), and FastAPI rendering server (Jinja2, SSE, REST API) — highlights hybrid search (pgvector HNSW, pg_trgm, RRF), six PL/pgSQL gate functions (G1 retrieval, G2 citations, G2.5 grounding, G3 format, G4 novelty, G5 commit), LISTEN/NOTIFY event bus, and OpenAI GPT-5 integration",
+  "alt_text": "Concentric rings architecture diagram for a Postgres-centric AI slide generator showing three-pipeline system: content ingestion via Kafka, slide generation via LangGraph with six-gate validation, and real-time SSE rendering — PostgreSQL as the unified control plane",
+  "use_cases": ["what-we-built"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for SCaLE 23x presentation",
+  "style": "diagram"
+}

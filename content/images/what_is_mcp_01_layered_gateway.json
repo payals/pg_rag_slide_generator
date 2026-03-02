@@ -1,0 +1,8 @@
+{
+  "caption": "Layered architecture diagram showing Model Context Protocol MCP concept with top layer LLM AI Agent brain icon in cloud, middle layer MCP Server shield gateway icon containing Typed Tool Definitions as sub-elements, bottom layer Data Sources including database files and APIs, MCP layer acts as controlled gateway with validated arrows, without MCP shown as direct dangerous arrow with red X",
+  "alt_text": "Three-layer MCP architecture: LLM at top, MCP gateway shield in middle with typed tools, data sources at bottom, dangerous direct access shown crossed out",
+  "use_cases": ["what-is-mcp", "mcp-tools", "schema-security"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for Scale23x presentation",
+  "style": "diagram"
+}

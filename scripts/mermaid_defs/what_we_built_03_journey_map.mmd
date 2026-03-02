@@ -1,0 +1,17 @@
+%%{init: {'theme': 'dark'}}%%
+flowchart TB
+    DOCS["📄 Source Docs"] --> INGEST["📥 Chunk & Embed"]
+    INGEST --> PG[("🐘 PostgreSQL<br/>pgvector Knowledge Base")]
+    PG -->|typed tools| MCP["🔧 MCP Server<br/>(Postgres functions)"]
+    MCP -->|prompts| LLM["🤖 LLM Generation"]
+    LLM --> GATES["🚦 Gate Validation<br/>(Postgres functions)"]
+    GATES -->|pass| SLIDES["📊 reveal.js<br/>(LISTEN / NOTIFY)"]
+    GATES -->|fail| LLM
+
+    style DOCS fill:#f97316,stroke:#ea580c,color:#f1f5f9
+    style INGEST fill:#0d9488,stroke:#0f766e,color:#f1f5f9
+    style PG fill:#336791,stroke:#2563eb,color:#f1f5f9
+    style MCP fill:#2563eb,stroke:#1d4ed8,color:#f1f5f9
+    style LLM fill:#8b5cf6,stroke:#7c3aed,color:#f1f5f9
+    style GATES fill:#eab308,stroke:#ca8a04,color:#0a0e27
+    style SLIDES fill:#22c55e,stroke:#16a34a,color:#f1f5f9

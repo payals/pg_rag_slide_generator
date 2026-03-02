@@ -1,0 +1,8 @@
+{
+  "caption": "Side-by-side comparison of Typical AI Stack versus Postgres-First RAG — left side shows 6 fragmented services (Vector Database Pinecone/Weaviate/Qdrant, Search Engine Elasticsearch/OpenSearch, Metadata Database MongoDB/DynamoDB, Cache Layer Redis/Memcached, Logging/Observability Datadog/Langfuse, Ingestion Pipeline Airflow/Lambda) with pain points 'No ACID across services, 6 APIs to maintain, Data consistency is hope-based' — right side shows consolidated Postgres-First RAG with Kafka event stream feeding into single Postgres box replacing all 6 services (vectors via pgvector, full-text search via tsvector, fuzzy match via pg_trgm, validation gates via PL/pgSQL, logging and observability via views, real-time events via LISTEN/NOTIFY) connected to LangGraph Orchestrator and GPT-5",
+  "alt_text": "Before-and-after architecture comparison: 6 fragmented AI services consolidated into single Postgres database with full ACID guarantees",
+  "use_cases": ["takeaways"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for SCaLE 23x presentation",
+  "style": "diagram"
+}

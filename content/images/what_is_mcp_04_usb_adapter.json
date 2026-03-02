@@ -1,0 +1,8 @@
+{
+  "caption": "USB adapter metaphor diagram showing LLM as one device and Database as another with MCP as the standardized connector adapter between them like USB-C cable providing standard interface so any LLM can connect to any data source using same protocol, multiple LLMs on left and multiple data sources on right all connecting through MCP adapters",
+  "alt_text": "USB-C adapter metaphor with multiple LLMs on left connecting through standardized MCP adapters to multiple data sources on right",
+  "use_cases": ["what-is-mcp"],
+  "license": "CC0-1.0",
+  "attribution": "AI-generated for Scale23x presentation",
+  "style": "diagram"
+}
